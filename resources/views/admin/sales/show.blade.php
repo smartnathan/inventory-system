@@ -146,6 +146,7 @@
                                     <hr />
 <div class="lead text-right">Grand Total (₦) = {{ $total }}.00</div>
 <hr />
+<div class="text-right"><a target="_blank" class="btn btn-primary btn-rounded" href="{{ url('admin/sales/invoice', ['id' => $sale->id])}}">Generate Invoice</a></div>
                                 </div>
                                 </div>
 

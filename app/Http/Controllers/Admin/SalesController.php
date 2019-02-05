@@ -111,8 +111,14 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
     {
         $total = 0;
         $sale = Sale::findOrFail($id);
-
         return view('admin.sales.show', compact('sale', 'total'));
+    }
+
+    public function invoice($id)
+    {
+        $total = 0;
+        $sale = Sale::findOrFail($id);
+        return view('admin.sales.invoice', compact('sale', 'total'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Sale;
 use Carbon\Carbon;
 
 /*
@@ -14,15 +15,13 @@ use Carbon\Carbon;
 */
 
 Route::get('/', 'Auth\\LoginController@showLoginForm');
-Route::get('test', function(){
-echo Carbon::now()->diffForHumans();
-});
 
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function(){
+Route::get('admin/sales/invoice/{id}', 'Admin\SalesController@invoice');
 Route::get('admin/products/low-product', 'Admin\ProductsController@low_product');
 Route::get('admin', 'Admin\AdminController@index');
 Route::resource('admin/roles', 'Admin\RolesController');
