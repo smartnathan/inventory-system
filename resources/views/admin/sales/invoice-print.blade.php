@@ -1,31 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-8">
-                    <h2>Invoice</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="/admin">Home</a>
-                        </li>
-                        <li>
-                            Sales Order
-                        </li>
-                        <li class="active">
-                            <strong>Invoice</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-lg-4">
-                    <div class="title-action">
-                        {{-- <a href="#" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="#" class="btn btn-white"><i class="fa fa-check "></i> Save </a> --}}
-                        <a href="{{ url('admin/sales/invoice-print', ['id' => $sale->id])}}" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a>
-                    </div>
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="wrapper wrapper-content p-xl">
                     <div class="ibox-content p-xl">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -131,14 +106,17 @@
                                 </tr> --}}
                                 <tr>
                                     <td><strong>TOTAL :</strong></td>
-                                    <td><h2>₦ {{ $total }}.00</h2></td>
+                                    <td><h2>₦{{ $total }}.00</h2></td>
                                 </tr>
                                 </tbody>
                             </table>
 
                         </div>
                 </div>
-            </div>
-        </div>
 @endsection
 
+@section('scripts')
+<script type="text/javascript">
+        window.print();
+    </script>
+@endsection

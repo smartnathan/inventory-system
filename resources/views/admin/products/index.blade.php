@@ -52,19 +52,20 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+                <div class="col-sm-5 m-b-xs">
+                    {{-- <select class="input-sm form-control input-s-sm inline">
                     <option value="0">Option 1</option>
                     <option value="1">Option 2</option>
                     <option value="2">Option 3</option>
                     <option value="3">Option 4</option>
-                </select>
+                </select> --}}
                 </div>
                 <div class="col-sm-4 m-b-xs">
-                    <div data-toggle="buttons" class="btn-group">
+                    {{-- <div data-toggle="buttons" class="btn-group">
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                         <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-sm-3">
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/products', 'role' => 'search'])  !!}
@@ -81,10 +82,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th><th>Name</th>
+                            <th>#</th>
+                            <th>Name</th>
                             <th>Brand</th>
-                            <th>Quantity Available</th>
-                            <th>Cost Price</th>
+                            <th>Cost Price(₦)</th>
+                            <th>Wholesale Price(₦)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -92,10 +94,11 @@
                     @foreach($products as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->name }}</td>
+                            <td>
+                                <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product">{{ $item->name }}</a></td>
                             <td>{{ $item->brand->name }}</td>
-                            <td>{{ $item->stock->quantity_in_hand }}</td>
                             <td>{{ $item->cost_price }}</td>
+                            <td>{{ $item->whole_sale_price }}</td>
                             <td>
                                 <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                 <a href="{{ url('/admin/products/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

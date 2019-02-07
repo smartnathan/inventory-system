@@ -22,12 +22,12 @@
         <div>
             <div>
 
-                <h1 class="logo-name">IN+</h1>
+               <div class="text-center"><img class="img-responsive" src="{{ asset('img/logo1.png')}}" alt="Logo"></div>
 
             </div>
             <h3>Welcome to {{ config('app.name') }}</h3>
-            <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-                <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
+             <p>.
+Be up-to-date with day to day management of your business.
             </p>
                 <div class="lead">{{ __('Reset Password') }}</div>
             @if (session('status'))

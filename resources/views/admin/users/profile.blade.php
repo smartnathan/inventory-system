@@ -7,15 +7,15 @@
                 <div class="col-md-6">
 
                     <div class="profile-image">
-                        <img src="@if(Auth::user()->gender == 'male') {{ asset('img/male.png') }} @else {{ asset('img/female.png') }} @endif"" class="img-circle circle-border m-b-md" alt="profile">
+                        <img src="@if($user->gender == 'male') {{ asset('img/male.png') }} @else {{ asset('img/female.png') }} @endif"" class="img-circle circle-border m-b-md" alt="profile">
                     </div>
                     <div class="profile-info">
                         <div class="">
                             <div>
                                 <h2 class="no-margins">
-                                    {{ Auth::user()->name}}
+                                    {{ $user->name}}
                                 </h2>
-                                <h4> {{ Auth::user()->roles[0]->label }} </h4>
+                                <h4> {{ $user->roles[0]->label }} </h4>
                                 {{-- <small>
                                     There are many variations of passages of Lorem Ipsum available, but the majority
                                     have suffered alteration in some form Ipsum available.
@@ -85,7 +85,8 @@
 
                     <div class="ibox">
                         <div class="ibox-content">
-                                <h3>About {{ Auth::user()->name}}</h3>
+                            <a href="{{ url('/admin/users') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                                <h3>About {{ $user->name}}</h3>
 
                             {{-- <p class="small">
                                 There are many variations of passages of Lorem Ipsum available, but the majority have
@@ -97,7 +98,11 @@
                             </p> --}}
 
                             <p class="small font-bold">
-                                <span><i class="fa fa-circle text-navy"></i> Online status</span>
+                                @if ($user->is_online == 1)
+                                <span><strong>Status: </strong><i class="fa fa-circle text-navy"></i> Online</span>
+                                @else
+                                <span><strong>Status: </strong><i class="fa fa-circle text-danger"></i> Offline</span>
+                                @endif
                                 </p>
 
                         </div>
@@ -148,6 +153,7 @@
                                 @elseif($log->log_name == 'sales')
                                 <span class="label label-warning"> Sales</span>
                                     @else
+                                    <span class="label label-success"> Default</span>
                                     @endif
                                         <span style="font-weight: bold">{{ $log->created_at->diffForHumans() }}</span>
                                     <span class="text-muted"> at {{ date('h:s:i a', strtotime($log->created_at))}}  </span>   {{ $log->description }} <a href="#">{{ $log->subject_type }}</a>

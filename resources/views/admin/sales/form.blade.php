@@ -37,10 +37,10 @@
                                     <div class="col-md-6">
 <div class="form-group{{ $errors->has('product_id') ? 'has-error' : ''}}">
     <select name="product_id[]" class="form-control select2_demo_" required="required">
-        <option value="">Choose a Customer</option>
-            @if ($products)
-@foreach($products as $product)
-<option value="{{ $product->id }}">{{ $product->name }} - {{ $product->brand->manufacturer->name }}</option>
+        <option value="">Choose a product</option>
+            @if ($stocks)
+@foreach($stocks as $stock)
+<option value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->name }} - {{ $stock->product->brand->manufacturer->name }}</option>
 @endforeach
     @endif
     </select>

@@ -31,7 +31,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'store_id', 'brand_id', 'created_by', 'category_id', 'code', 'image', 'cost_price', 'unit_of_measurement_id', 'description', 'is_active', 'wholesale_min_quantity', 'retail_price', 'whole_sale_price', 'remark'];
+    protected $fillable = ['name', 'brand_id', 'created_by', 'category_id', 'code', 'image', 'cost_price', 'unit_of_measurement_id', 'description', 'is_active', 'wholesale_min_quantity', 'retail_price', 'whole_sale_price', 'remark'];
 
 
 
@@ -72,9 +72,9 @@ class Product extends Model
         return $this->belongsTo(UnitOfMeasurement::class);
     }
 
-    public function stock()
+    public function stocks()
     {
-        return $this->hasOne(Stock::class);
+        return $this->hasMany(Stock::class);
     }
 
 public function purchaseOrderLine()

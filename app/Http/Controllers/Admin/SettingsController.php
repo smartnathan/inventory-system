@@ -106,7 +106,7 @@ class SettingsController extends Controller
         $this->validate(
             $request,
             [
-                'key' => 'required|string|unique:settings,key,' . $id,
+                //'key' => 'required|string|unique:settings,key,' . $id,
                 'value' => 'required'
             ]
         );

@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
 $table->unsignedInteger('product_id');
 $table->unsignedInteger('quantity');
 $table->boolean('is_paid');
+$table->unsignedInteger('is_returned')->default('0');
+$table->string('code')->unique();
             $table->timestamps();
         });
     }

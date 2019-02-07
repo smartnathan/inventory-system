@@ -31,14 +31,15 @@
                             ))!!}
                         {!! Form::close() !!} --}}
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="{{ url('/admin/sales/' . $sale->id . '/edit') }}" title="Edit Sale" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit sale</a>
+                                        {{-- <a  href="{{ url('/admin/sales/' . $sale->id . '/edit') }}" title="Edit Sale" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit sale</a> --}}
+                                        <a  href="#" title="Edit Sale" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit sale</a>
                                         <h2><a href="{{ url('/admin/sales') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a> {{ $sale->code }}</h2>
                                     </div>
                                     <dl class="dl-horizontal">
@@ -95,7 +96,9 @@
                                         <tr>
                                             <th>Payment Status</th>
                                             <th>Product</th>
+                                            <th>Product Order Code</th>
                                             <th>Quantity</th>
+                                            <th>Returned</th>
                                             <th>Unit Price (₦)</th>
                                             <th>Total (₦)</th>
 
@@ -105,7 +108,7 @@
                                         @foreach($sale->orders as $item)
                                         <tr>
                                             <td>
-                                                @if ($sale->is_paid == 1)
+                                                @if ($item->is_paid == 1)
                                                 <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
                                                 @else
                                                 <span class="label label-danger"><i class="fa fa-times"></i> Not Paid</span>
@@ -115,8 +118,18 @@
                                                {{ $item->product->name }}
                                             </td>
                                             <td>
+                                               {{ $item->code }}
+                                            </td>
+                                            <td>
                                                {{ $item->quantity }}
                                             </td>
+                                            <th>
+                                                @if ($item->is_returned > 0)
+                                                <span class="badge badge-danger"> {{ $item->is_returned }}</span>
+                                                @else
+                                                <span class="badge badge-danger"> {{ $item->is_returned }}</span>
+                                                @endif
+                                            </th>
                                             <td>
                 @if ($item->quantity >= $item->product->wholesale_min_quantity)
                             {{ $item->product->whole_sale_price}}

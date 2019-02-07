@@ -58,7 +58,7 @@ class ProductsController extends Controller
     {
         $brands = Brand::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Brand--', '');
         $categories = Category::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Category--', '');
-        $stores = Store::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Store--', '');
+        $stores = Store::select('id', 'name')->get()->pluck('name','id');
 $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label','id')->prepend('--Select Unit of Measurement--', '');
         return view('admin.products.create', compact('brands', 'categories', 'units', 'stores'));
     }
@@ -72,15 +72,15 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $this->validate($request, [
 			'name' => 'required',
 			'brand_id' => 'required',
-			'store_id' => 'required',
+			'stores' => 'required',
 			'category_id' => 'required',
 			'cost_price' => 'required',
 			'unit_of_measurement_id' => 'required',
 			'description' => 'required',
-			'is_active' => 'required',
 			'wholesale_min_quantity' => 'required',
 			'retail_price' => 'required',
 			'whole_sale_price' => 'required',
@@ -91,12 +91,16 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
         $requestData['code'] = str_replace(' ', '-', strtolower($request->input('name'))).'-'.str_random(5).'-'.date('Y', time());
         $requestData['name'] = $brand->manufacturer->name . ' ' .$request->input('name');
         $product = Product::create($requestData);
+        $stores = $request->input('stores');
         //Create new Stock of the added product
+        foreach ($stores as $store) {
         $stock = new Stock;
         $stock->product_id = $product->id;
+        $stock->store_id = $store;
         $stock->quantity_in_hand = $request->input('quantity_in_hand');
         $stock->re_order_quantity = $request->input('re_order_quantity');
         $stock->save();
+        }
 
 
 

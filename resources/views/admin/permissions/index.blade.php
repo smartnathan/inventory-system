@@ -52,19 +52,20 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+                <div class="col-sm-5 m-b-xs">
+                    {{-- <select class="input-sm form-control input-s-sm inline">
                     <option value="0">Option 1</option>
                     <option value="1">Option 2</option>
                     <option value="2">Option 3</option>
                     <option value="3">Option 4</option>
-                </select>
+                </select> --}}
                 </div>
                 <div class="col-sm-4 m-b-xs">
-                    <div data-toggle="buttons" class="btn-group">
+                    {{-- <div data-toggle="buttons" class="btn-group">
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                         <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-sm-3">
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/permissions', 'role' => 'search'])  !!}
@@ -88,9 +89,9 @@
                     @foreach($permissions as $item)
                         <tr>
                             <td>{{ $loop->iteration}}</td>
-                            <td><a href="{{ url('/admin/permissions', $item->id) }}">{{ $item->name }}</a></td><td>{{ $item->label }}</td>
+                            <td>{{ $item->name }}</td><td>{{ $item->label }}</td>
                             <td>
-                                <a href="{{ url('/admin/permissions/' . $item->id) }}" title="View Permission"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                {{-- <a href="{{ url('/admin/permissions/' . $item->id) }}" title="View Permission"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
                                 <a href="{{ url('/admin/permissions/' . $item->id . '/edit') }}" title="Edit Permission"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                 {!! Form::open([
                                     'method' => 'DELETE',

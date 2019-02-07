@@ -52,19 +52,20 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+                <div class="col-sm-5 m-b-xs">
+                    {{-- <select class="input-sm form-control input-s-sm inline">
                     <option value="0">Option 1</option>
                     <option value="1">Option 2</option>
                     <option value="2">Option 3</option>
                     <option value="3">Option 4</option>
-                </select>
+                </select> --}}
                 </div>
                 <div class="col-sm-4 m-b-xs">
-                    <div data-toggle="buttons" class="btn-group">
+                    {{-- <div data-toggle="buttons" class="btn-group">
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                         <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                         <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-sm-3">
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/settings', 'role' => 'search'])  !!}
@@ -91,9 +92,9 @@
                             <td>{{ $item->value }}</td>
                             <td><code>setting('{{ $item->key }}')</code></td>
                             <td>
-                                <a href="{{ url('/admin/settings/' . $item->id) }}" title="View Setting"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                {{-- <a href="{{ url('/admin/settings/' . $item->id) }}" title="View Setting"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
                                 <a href="{{ url('/admin/settings/' . $item->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                {!! Form::open([
+                                {{-- {!! Form::open([
                                     'method' => 'DELETE',
                                     'url' => ['/admin/settings', $item->id],
                                     'style' => 'display:inline'
@@ -104,7 +105,7 @@
                                             'title' => 'Delete Setting',
                                             'onclick'=>'return confirm("Confirm delete?")'
                                     )) !!}
-                                {!! Form::close() !!}
+                                {!! Form::close() !!} --}}
                             </td>
                         </tr>
                     @endforeach

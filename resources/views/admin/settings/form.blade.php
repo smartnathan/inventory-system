@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has('key') ? 'has-error' : ''}}">
     {!! Form::label('key', 'Key', ['class' => 'control-label']) !!}
-    {!! Form::text('key', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::text('key', null, ['class' => 'form-control', 'required' => 'required', isset($setting) ? 'readonly' : '']) !!}
     {!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('value') ? 'has-error' : ''}}">

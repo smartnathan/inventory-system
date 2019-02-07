@@ -87,11 +87,11 @@ class UsersController extends Controller
     public function show($id)
     {
         $total = 0;
-        $total_sale = Sale::where('created_by', Auth::Id())->get();
-        $today_sale = Sale::where('created_by', Auth::Id())->where('created_at', '>=', Carbon::today())->get();
+        $total_sale = Sale::where('created_by', $id)->get();
+        $today_sale = Sale::where('created_by', $id)->where('created_at', '>=', Carbon::today())->get();
         $user = User::findOrFail($id);
-        $activity_logs = Activity::where('causer_id', Auth::Id())->latest()->get();
-        if (Auth::Id() == $id) {
+        $activity_logs = Activity::where('causer_id', $id)->latest()->take(14)->get();
+        if (Auth::Id() == $id || Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin'])) {
             return view('admin.users.profile', compact('user', 'activity_logs', 'today_sale', 'total_sale', 'total'));
         }
         else {

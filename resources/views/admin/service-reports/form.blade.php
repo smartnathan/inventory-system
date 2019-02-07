@@ -7,11 +7,11 @@
 
 <div class="form-group{{ $errors->has('customer_id') ? 'has-error' : ''}}">
     {!! Form::label('customer_id', 'Customer', ['class' => 'control-label']) !!}
-    <select name="customer_id" class="form-control chosen-select" required="required">
+    <select name="customer_id" class="chosen-select form-control" required="required">
         <option value="">Choose a Customer</option>
             @if ($customers)
 @foreach($customers as $user)
-<option {{($servicereport->customer_id == $user->id) ? 'selected' : ''}} value="{{ $user->id }}">{{ $user->name }} : {{ $user->mobile_number }}</option>
+<option {{(isset($servicereport) && $servicereport->customer_id == $user->id) ? 'selected' : ''}} value="{{ $user->id }}">{{ $user->name }} : {{ $user->mobile_number }}</option>
 @endforeach
     @endif
     </select>
@@ -31,5 +31,5 @@
 
 
 <div class="form-group">
-    {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit($formMode === 'edit' ? 'Update Report' : 'Submit Report', ['class' => 'btn btn-primary']) !!}
 </div>

@@ -52,19 +52,20 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+                    <div class="col-sm-5 m-b-xs">
+                        {{-- <select class="input-sm form-control input-s-sm inline">
                         <option value="0">Option 1</option>
                         <option value="1">Option 2</option>
                         <option value="2">Option 3</option>
                         <option value="3">Option 4</option>
-                    </select>
+                    </select> --}}
                     </div>
                     <div class="col-sm-4 m-b-xs">
-                        <div data-toggle="buttons" class="btn-group">
+                        {{-- <div data-toggle="buttons" class="btn-group">
                             <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                             <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                             <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-sm-3">
                             {!! Form::open(['method' => 'GET', 'url' => '/admin/users', 'role' => 'search'])  !!}
@@ -89,14 +90,14 @@
                             <th>Date Created</th>
                             <th>Store</th>
                             <th>Role</th>
-
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $item)
                         <tr>
-                            <td><input type="checkbox"  checked class="i-checks" name="input[]"></td>
+                            <td><input type="checkbox" class="i-checks" name="input[]"></td>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
@@ -104,6 +105,13 @@
 <td>{{ ($item->store) ? $item->store->name : '' }}</td>
 <td>@if ($item->roles[0]->name == 'maintenance-admin') <span class="badge badge-danger"> {{ $item->roles[0]->label }}</span> @else <span class="badge badge-success"> {{ $item->roles[0]->label }}</span>
     @endif</td>
+                            <td>
+                                @if ($item->is_online == 1)
+                                <span><strong></strong><i class="fa fa-circle fa-1x text-navy"></i> Online</span>
+                                @else
+                                <span><strong></strong><i class="fa fa-circle fa-1x text-danger"></i> Offline</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ url('/admin/users/' . $item->id) }}" title="View User"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                 <a href="{{ url('/admin/users/' . $item->id . '/edit') }}" title="Edit User"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

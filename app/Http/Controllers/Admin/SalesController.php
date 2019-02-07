@@ -55,8 +55,8 @@ class SalesController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $products = Product::select('id', 'name', 'brand_id')->get();
-        return view('admin.sales.create', compact('customers', 'products'));
+        $stocks = Stock::whereRaw('quantity_in_hand > re_order_quantity')->where('store_id', Auth::user()->store_id)->get();
+        return view('admin.sales.create', compact('customers', 'stocks'));
     }
 
     /**
@@ -78,13 +78,17 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
         $sale = Sale::create($requestData);
         $x = 0;
         foreach ($requestData['product_id'] as $item) {
+            $content = explode(',', $item);
+            $product_id = $content[0];
+            $stock_id = $content[1];
             $order = new Order;
             $order->sale_id = $sale->id;
-            $order->product_id = $item;
+            $order->product_id = $product_id;
             $order->quantity = $requestData['quantity'][$x];
             $order->is_paid = $requestData['is_paid'][$x];
+            $order->code = str_random(11);
             $order->save();
-            $stock = Stock::where('product_id', $item )->first();
+            $stock = Stock::findOrFail($stock_id);
             $stock->decrement('quantity_in_hand', $requestData['quantity'][$x]);
             $x++;
         }
@@ -119,6 +123,13 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
         $total = 0;
         $sale = Sale::findOrFail($id);
         return view('admin.sales.invoice', compact('sale', 'total'));
+    }
+
+    public function invoice_print($id)
+    {
+        $total = 0;
+        $sale = Sale::findOrFail($id);
+        return view('admin.sales.invoice-print', compact('sale', 'total'));
     }
 
     /**

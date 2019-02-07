@@ -52,7 +52,7 @@
                         </ul>
                     </div>
                     <div class="logo-element">
-                        IN+
+                        JBS
                     </div>
                 </li>
                 <li class="active">
@@ -60,6 +60,7 @@
 
                 </li>
 
+@if(Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin']))
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Manage Users</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
@@ -68,12 +69,14 @@
                         <li><a href="{{ url('admin/users') }}">Users</a></li>
                     </ul>
                 </li>
+@endif
                 <li>
                         <a href="{{ url('admin/customers') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Customers</span></a>
                 </li>
                 <li>
                     <a href="{{ url('/admin/sales') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Sales</span></a>
                 </li>
+@if(Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin']))
 
                 <li>
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Setup Inventory</span><span class="fa arrow"></span></a>
@@ -100,13 +103,19 @@
                     <li>
                         <a href="{{ url('admin/services') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Services</span></a>
                     </li>
+
+
                     <li>
-                        <a href="{{ url('admin/service-reports') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Service Reports</span></a>
+                        <a href="{{ url('admin/reports/sales') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Sales Report</span></a>
                     </li>
 
                 <li>
                     <a href="{{ url('/admin/settings') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
                 </li>
+                @endif
+                <li>
+                        <a href="{{ url('admin/service-reports') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Service Reports</span></a>
+                    </li>
             </ul>
 
         </div>
@@ -127,6 +136,7 @@
 <li>
                     <span class="m-r-sm text-muted welcome-message">Welcome to Jay Bawa Systems Inventory Management Application.</span>
                 </li>
+@if(Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin']))
 
                 <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -172,7 +182,7 @@
                     </ul>
                     @endif
                 </li>
-
+@endif
                 <li>
                     <a href="{{ url('/logout') }}"
                                        onclick="event.preventDefault();
@@ -194,7 +204,10 @@
         </nav>
         </div>
             @yield('content')
-        <div class="footer">
+            @if (request()->is('admin/sales/invoice-print/*'))
+            <div></div>
+            @else
+            <div class="footer">
             <div class="pull-right">
                 This Applicatiion took <strong>{{ (microtime(true) - LARAVEL_START) }}</strong> seconds to render this page.
 .
@@ -203,6 +216,8 @@
                 <strong>&copy; {{date('Y', time())}}</strong> SmartComm Network Group
             </div>
         </div>
+            @endif
+
         </div>
 </div>
 
@@ -232,11 +247,14 @@
       <!-- Chosen -->
     <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
 
-
     <script src="{{ asset('js/plugins/select2/select2.full.min.js') }}"></script>
 <script>
-                //$('.chosen-select').chosen();
-                 $(".select2_demo_1").select2();
+                $('.chosen-select').chosen();
+                 $(".select2_demo_3").select2({
+                placeholder: "Select Store(s)"
+            });
+                 $(".select2_demo").select2();
+
 
     </script>
         <!-- Sweet alert -->
