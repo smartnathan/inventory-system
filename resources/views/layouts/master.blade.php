@@ -213,7 +213,7 @@
 .
             </div>
             <div>
-                <strong>&copy; {{date('Y', time())}}</strong> SmartComm Network Group
+                <strong>&copy; {{date('Y', time())}} {{ config('app.name') }}</strong> | <em>Powered by AllSafe & <a target="_blank" href="http://appnatureng.com/">Appnature</a></em>
             </div>
         </div>
             @endif
