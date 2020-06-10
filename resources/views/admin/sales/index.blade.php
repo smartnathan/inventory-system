@@ -26,10 +26,12 @@
     <div class="ibox float-e-margins">
 
         <div class="ibox-title">
+                @if ( ! Auth::user()->hasRole(['admin', 'maintenance-admin']))
                 <a href="{{ url('/admin/sales/create') }}" class="btn btn-success btn-sm" title="Add New sale">
                     <i class="fa fa-laptop" aria-hidden="true"></i>
                     <span class="bold"> Make a Sale</span>
                 </a>
+                @endif
 
             <div class="ibox-tools">
 

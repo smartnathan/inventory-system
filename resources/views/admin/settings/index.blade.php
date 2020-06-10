@@ -26,10 +26,10 @@
     <div class="ibox float-e-margins">
 
         <div class="ibox-title">
-                <a href="{{ url('/admin/settings/create') }}" class="btn btn-success btn-sm" title="Add New setting">
+                {{-- <a href="{{ url('/admin/settings/create') }}" class="btn btn-success btn-sm" title="Add New setting">
                     <i class="fa fa-laptop" aria-hidden="true"></i>
                     <span class="bold"> Add Setting</span>
-                </a>
+                </a> --}}
 
             <div class="ibox-tools">
 
@@ -82,15 +82,20 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Key</th><th>Value</th><th>Usage</th><th>Actions</th>
+                            <th>Id</th>
+                            <th>Key</th><th>Value</th>
+                            {{-- <th>Usage</th> --}}
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($settings as $item)
                         <tr>
+
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->key }}</td>
                             <td>{{ $item->value }}</td>
-                            <td><code>setting('{{ $item->key }}')</code></td>
+                            {{-- <td><code>setting('{{ $item->key }}')</code></td> --}}
                             <td>
                                 {{-- <a href="{{ url('/admin/settings/' . $item->id) }}" title="View Setting"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
                                 <a href="{{ url('/admin/settings/' . $item->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
