@@ -1,4 +1,5 @@
-<div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
+<div style="margin: 0px 200px 0px 200px">
+    <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
     {!! Form::label('name', 'Name', ['class' => 'control-label']) !!}
     {!! Form::text('name', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
@@ -18,7 +19,9 @@
     {!! Form::email('email', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div>
-
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
 </div>
+</div>
+
+
