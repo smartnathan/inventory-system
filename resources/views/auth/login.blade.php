@@ -58,14 +58,14 @@ Be up-to-date with day to day management of your business.
                                 </button>
 
 
-                                @if (Route::has('password.request'))
+                                {{-- @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         <small>{{ __('Forgot Your Password?') }}</small>
                                     </a>
-                                @endif
+                                @endif --}}
 
             </form>
-            <p class="m-t"> <small>SmartComm Network Group &copy; {{ date('Y', time()) }}</small> </p>
+            <p class="m-t"> <strong>&copy; {{date('Y', time())}} {{ config('app.name') }}</strong> <br> <em>Powered by AllSafe & <a target="_blank" href="http://appnatureng.com/">Appnature</a></em> </p>
         </div>
     </div>
 

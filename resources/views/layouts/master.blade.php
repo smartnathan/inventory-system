@@ -60,7 +60,7 @@
 
                 </li>
 
-@if(Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin']))
+@if(Auth::user()->hasRole(['maintenance-admin']))
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Manage Users</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
@@ -70,8 +70,13 @@
                     </ul>
                 </li>
 @endif
+@if (Auth::user()->hasRole(['admin']))
+<li>
+                        <a href="{{ url('admin/users') }}"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span></a>
+                </li>
+@endif
                 <li>
-                        <a href="{{ url('admin/customers') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Customers</span></a>
+                        <a href="{{ url('admin/customers') }}"><i class="fa fa-user"></i> <span class="nav-label">Customers</span></a>
                 </li>
                 <li>
                     <a href="{{ url('/admin/sales') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Sales</span></a>
@@ -85,7 +90,7 @@
                         <li><a href="{{ url('/admin/categories') }}">Categories</a></li>
                         <li><a href="{{ url('admin/manufacturers') }}">Products</a></li>
 {{--                         <li><a href="{{ url('admin/brands') }}">Models</a></li> --}}
-                        <li><a href="{{ url('admin/suppliers') }}">Suppiers</a></li>
+                        {{-- <li><a href="{{ url('admin/suppliers') }}">Suppiers</a></li> --}}
                         {{-- <li><a href="{{ url('admin/unit-of-measurements') }}">Unit of Measurement</a></li> --}}
 
                     </ul>
@@ -100,9 +105,9 @@
                         </ul>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{ url('admin/services') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Services</span></a>
-                    </li>
+                    </li> --}}
 
 
                     <li>
@@ -113,9 +118,9 @@
                     <a href="{{ url('/admin/settings') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Settings</span></a>
                 </li>
                 @endif
-                <li>
+                {{-- <li>
                         <a href="{{ url('admin/service-reports') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Service Reports</span></a>
-                    </li>
+                    </li> --}}
             </ul>
 
         </div>

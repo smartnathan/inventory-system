@@ -15,10 +15,10 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/create', function(){
-	$user = User::create(['name'=>'NAthaniel David', 'password'=>bcrypt('xbba063nath'), 'email'=> 'david.nathaniel13@gmail.com', 'gender' => 'male']);
-	$user->assignRole('maintenance-admin');
-});
+// Route::get('/create', function(){
+// 	$user = User::create(['name'=>'NAthaniel David', 'password'=>bcrypt('xbba063nath'), 'email'=> 'david.nathaniel13@gmail.com', 'gender' => 'male']);
+// 	$user->assignRole('maintenance-admin');
+// });
 
 Route::get('/', 'Auth\\LoginController@showLoginForm');
 
@@ -40,8 +40,8 @@ Route::resource('admin/activitylogs', 'Admin\ActivityLogsController')->only([
     'index', 'show', 'destroy'
 ]);
 Route::resource('admin/settings', 'Admin\SettingsController');
-Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
-Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
+// Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
+// Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
 Route::resource('admin/stores', 'Admin\\StoresController');
 Route::resource('admin/categories', 'Admin\\CategoriesController');
