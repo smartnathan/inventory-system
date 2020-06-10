@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('manufacturer_id') ? 'has-error' : ''}}">
-    {!! Form::label('manufacturer_id', 'Manufacturer', ['class' => 'control-label']) !!}
+    {!! Form::label('manufacturer_id', 'Product', ['class' => 'control-label']) !!}
     {!! Form::select('manufacturer_id', $manufacturers, null, ['class' => 'form-control chosen-select', 'required' => 'required']) !!}
     {!! $errors->first('manufacturer_id', '<p class="help-block">:message</p>') !!}
 </div>

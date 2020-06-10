@@ -44,7 +44,7 @@ class BrandsController extends Controller
     {
         $manufacturers = Manufacturer::select('id', 'name')->get()
         ->pluck('name', 'id')
-        ->prepend('--select Manufacturer--', '');
+        ->prepend('--select Product--', '');
         return view('admin.brands.create', compact('manufacturers'));
     }
 

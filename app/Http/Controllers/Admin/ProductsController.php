@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Brand;
-use App\Stock;
-
-use App\Store;
-use App\Product;
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Manufacturer;
+use App\Product;
+use App\Stock;
+use App\Store;
 use App\UnitOfMeasurement;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
@@ -57,10 +57,11 @@ class ProductsController extends Controller
     public function create()
     {
         $brands = Brand::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Brand--', '');
+        $manufacturers = Manufacturer::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Product--', '');
         $categories = Category::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Category--', '');
         $stores = Store::select('id', 'name')->get()->pluck('name','id');
 $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label','id')->prepend('--Select Unit of Measurement--', '');
-        return view('admin.products.create', compact('brands', 'categories', 'units', 'stores'));
+        return view('admin.products.create', compact('brands', 'manufacturers', 'categories', 'units', 'stores'));
     }
 
     /**
@@ -75,21 +76,30 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
         //dd($request->all());
         $this->validate($request, [
 			'name' => 'required',
-			'brand_id' => 'required',
+			//'brand_id' => 'required',
 			'stores' => 'required',
 			'category_id' => 'required',
 			'cost_price' => 'required',
-			'unit_of_measurement_id' => 'required',
-			'description' => 'required',
+			//'unit_of_measurement_id' => 'required',
+			//'description' => 'required',
 			'wholesale_min_quantity' => 'required',
-			'retail_price' => 'required',
-			'whole_sale_price' => 'required',
+			//'retail_price' => 'required',
+			//'whole_sale_price' => 'required',
 		]);
         $requestData = $request->all();
-        $brand = Brand::findOrFail($request->input('brand_id'));
+        $manufacturer = Manufacturer::findOrFail($request->input('manufacturer_id'));
         $requestData['created_by'] = Auth::Id();
         $requestData['code'] = str_replace(' ', '-', strtolower($request->input('name'))).'-'.str_random(5).'-'.date('Y', time());
-        $requestData['name'] = $brand->manufacturer->name . ' ' .$request->input('name');
+        //$requestData['name'] = $manufacturer->name . ' ' .$request->input('name');
+        //$requestData['name'] = $request->input('name');
+
+        //Calculate retail and wholesale price ffrom cust prices.
+        //Note
+        //Cost price input comes as a chinese currency,
+        //should be converted to naira equivalent
+        $requestData['retail_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Retail-Price');   
+
+        $requestData['whole_sale_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Wholesale-Price');
         $product = Product::create($requestData);
         $stores = $request->input('stores');
         //Create new Stock of the added product
@@ -152,21 +162,26 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
     {
         $this->validate($request, [
 			'name' => 'required',
-			'brand_id' => 'required',
+			//'brand_id' => 'required',
 			'store_id' => 'required',
 			'category_id' => 'required',
 			'cost_price' => 'required',
-			'unit_of_measurement_id' => 'required',
-			'description' => 'required',
+			//'unit_of_measurement_id' => 'required',
+			//'description' => 'required',
 			'wholesale_min_quantity' => 'required',
-			'retail_price' => 'required',
-			'whole_sale_price' => 'required',
+			//'retail_price' => 'required',
+			//'whole_sale_price' => 'required',
 			'remark' => 'required'
 		]);
         $requestData = $request->all();
         $requestData['code'] = str_replace(' ', '-', strtolower($request->input('name'))).'-'.str_random(5).'-'.date('Y', time());
 
         $product = Product::findOrFail($id);
+
+        $requestData['retail_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Retail-Price');   
+
+        $requestData['whole_sale_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Wholesale-Price');
+
         $product->update($requestData);
 
         //Create new Stock of the added product

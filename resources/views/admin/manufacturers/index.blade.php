@@ -3,16 +3,16 @@
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Manufacturers</h2>
+        <h2>Products</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="">Home</a>
             </li>
             <li>
-                <a>Manufacturers</a>
+                <a>Products</a>
             </li>
             <li class="active">
-                <strong>All Manufacturers</strong>
+                <strong>All Products</strong>
             </li>
         </ol>
     </div>
@@ -28,7 +28,7 @@
         <div class="ibox-title">
                 <a href="{{ url('/admin/manufacturers/create') }}" class="btn btn-success btn-sm" title="Add New manufacturers">
                     <i class="fa fa-laptop" aria-hidden="true"></i>
-                    <span class="bold"> Add Manufacturer</span>
+                    <span class="bold"> Add Product</span>
                 </a>
 
             <div class="ibox-tools">
@@ -82,14 +82,18 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th><th>Name</th><th>Country</th><th>Created By</th><th>Actions</th>
+                            <th>#</th><th>Name</th>
+                            {{-- <th>Country</th> --}}
+                            <th>Created By</th><th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($manufacturers as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->name }}</td><td>{{ $item->country->country_full_name }}</td><td>{{ $item->user->name }}</td>
+                            <td>{{ $item->name }}</td>
+                            {{-- <td>{{ $item->country->country_full_name }}</td> --}}
+                            <td>{{ $item->user->name }}</td>
                             <td>
                                 {{-- <a href="{{ url('/admin/manufacturers/' . $item->id) }}" title="View Manufacturer"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
                                 <a href="{{ url('/admin/manufacturers/' . $item->id . '/edit') }}" title="Edit Manufacturer"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

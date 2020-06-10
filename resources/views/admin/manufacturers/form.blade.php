@@ -3,7 +3,7 @@
     {!! Form::text('name', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group{{ $errors->has('country_id') ? 'has-error' : ''}}">
+{{-- <div class="form-group{{ $errors->has('country_id') ? 'has-error' : ''}}">
     {!! Form::label('country_id', 'Country', ['class' => 'control-label']) !!}
     {!! Form::select('country_id', $countries, null, ['class' => 'form-control chosen-select', 'required' => 'required']) !!}
     {!! $errors->first('country_id', '<p class="help-block">:message</p>') !!}
@@ -19,7 +19,7 @@
     <label>{!! Form::radio('status', '0') !!} No</label>
 </div>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-</div>
+</div> --}}
 
 
 <div class="form-group">

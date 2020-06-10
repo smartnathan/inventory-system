@@ -12,7 +12,7 @@
                 <a>Product</a>
             </li>
             <li class="active">
-                <strong>Create New Product</strong>
+                <strong>Add New Product</strong>
             </li>
         </ol>
     </div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Create Products</h5>
+                <h5>Add Products</h5>
                 <div class="ibox-tools">
                     {{-- <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

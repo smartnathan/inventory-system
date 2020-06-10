@@ -36,7 +36,7 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
                              </span> <span class="text-muted text-xs block"> {{ Auth::user()->roles['0']->label }} <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="{{ url('/admin/users/' . Auth::Id()) }}"">Profile</a></li>
+                            <li><a href="{{ url('/admin/users/' . Auth::Id()) }}">Profile</a></li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ url('/logout') }}"
@@ -83,10 +83,10 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ url('/admin/stores') }}">Stores</a></li>
                         <li><a href="{{ url('/admin/categories') }}">Categories</a></li>
-                        <li><a href="{{ url('admin/manufacturers') }}">Manufacturers</a></li>
-                        <li><a href="{{ url('admin/brands') }}">Models</a></li>
+                        <li><a href="{{ url('admin/manufacturers') }}">Products</a></li>
+{{--                         <li><a href="{{ url('admin/brands') }}">Models</a></li> --}}
                         <li><a href="{{ url('admin/suppliers') }}">Suppiers</a></li>
-                        <li><a href="{{ url('admin/unit-of-measurements') }}">Unit of Measurement</a></li>
+                        {{-- <li><a href="{{ url('admin/unit-of-measurements') }}">Unit of Measurement</a></li> --}}
 
                     </ul>
                 </li>

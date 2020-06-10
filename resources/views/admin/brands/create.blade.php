@@ -3,7 +3,7 @@
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Brands</h2>
+        <h2>Model</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="/admin">Home</a>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Create New Brand</h5>
+                <h5>Create New Model</h5>
                 <div class="ibox-tools">
                     {{-- <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

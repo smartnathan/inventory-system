@@ -38,7 +38,7 @@
                                     <div class="m-b-md">
                                         {{-- <a  href="{{ url('/admin/products/' . $products->id . '/edit') }}" title="Edit products" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit products</a> --}}
                                         <a  href="#" title="Edit products" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit products</a>
-                                        <h2><a href="{{ url('/admin/products') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a> {{ $product->name }}</h2>
+                                        <h2><a href="{{ url('/admin/products') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a> {{ $product->manufacturer->name }} {{ $product->name }}</h2>
                                     </div>
                                     <dl class="dl-horizontal">
                                         <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>
@@ -48,7 +48,7 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
-
+                                        <dt>Category:</dt> <dd>{{ $product->category->name }}</dd>
                                         <dt>Added By:</dt> <dd>{{ $product->user->name }}</dd>
                                         <dt>Product's Code:</dt> <dd>  {{ $product->code }} </dd>
                                         <dt>Product's Cost Price:</dt> <dd>  {{ $product->cost_price }} </dd>
@@ -94,7 +94,7 @@
                                         <thead>
                                         <tr>
                                             <th>Store</th>
-                                            <th>Quantity in Hand</th>
+                                            <th>Quantity Available</th>
                                             <th>Re-order Quantity</th>
                                             <th>Date Created</th>
 

@@ -84,9 +84,12 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Brand</th>
-                            <th>Cost Price(₦)</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Cost Price(RMB)</th>
+                            <th>Retail Price(₦)</th>
                             <th>Wholesale Price(₦)</th>
+                            {{-- <th>Quantity</th> --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -96,9 +99,12 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product">{{ $item->name }}</a></td>
-                            <td>{{ $item->brand->name }}</td>
+                            <td>{{ $item->manufacturer->name }}</td>
+                            <td>{{ $item->category->name }}</td>
                             <td>{{ $item->cost_price }}</td>
+                            <td>{{ $item->retail_price }}</td>
                             <td>{{ $item->whole_sale_price }}</td>
+                            {{-- <td>{{ $item->stocks->quantity_in_hand?? ''}}</td> --}}
                             <td>
                                 <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                 <a href="{{ url('/admin/products/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

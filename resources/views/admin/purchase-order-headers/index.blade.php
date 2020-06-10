@@ -86,8 +86,9 @@
                                 <th>#</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
-                                <th>Supplier</th>
-                                <th>Date Purchased</th><th>Total Amount</th><th>Actions</th>
+                                {{-- <th>Supplier</th> --}}
+                                <th>Date Added</th>
+                                <th>Total Amount</th><th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,8 +98,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->purchaseOrderLine->product->name }}</td>
                                 <td>{{ $item->purchaseOrderLine->quantity }}</td>
-                                <td>{{ $item->supplier->name }}</td>
-                                <td>{{ $item->date_purchased }}</td>
+                                {{-- <td>{{ $item->supplier->name }}</td> --}}
+                                <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->total_amount }}</td>
                                 <td>
                                     {{-- <a href="{{ url('/admin/purchase-order-headers/' . $item->id) }}" title="View PurchaseOrderHeader"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}

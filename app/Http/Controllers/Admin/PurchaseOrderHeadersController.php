@@ -60,26 +60,40 @@ class PurchaseOrderHeadersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'supplier_id' => 'required',
-			'date_purchased' => 'required',
-			'total_amount' => 'required',
+			//'supplier_id' => 'required',
+			//'date_purchased' => 'required',
+			//'total_amount' => 'required',
 			'unit_price' => 'required',
 			'quantity' => 'required',
 			'product_id' => 'required'
 		]);
+
         $requestData = $request->all();
         $requestData['created_by'] = Auth::Id();
+        $requestData['total_amount'] = setting('1RMB') * $request->input('unit_price')  * $request->input('quantity');
         $purchase_order_header = PurchaseOrderHeader::create($requestData);
         $purchase_order_line = new PurchaseOrderLine;
         $purchase_order_line->purchase_order_header_id = $purchase_order_header->id;
         $purchase_order_line->product_id = $request->input('product_id');
-        $purchase_order_line->unit_price = $request->input('unit_price');
+        //$purchase_order_line->unit_price = $request->input('unit_price');
+        $purchase_order_line->unit_price = setting('1RMB') * $request->input('unit_price') * setting('Retail-Price');
         $purchase_order_line->quantity = $request->input('quantity');
         $purchase_order_line->save();
 
 //Update Quantity in hand field in Products table
 $product_stock = Stock::where('product_id', $request->input('product_id'))->first();
 $product_stock->increment('quantity_in_hand', $request->input('quantity'));
+
+    /*Find and update product wholesale and retail price when re-stocked*/
+        
+        $product = Product::findOrFail($request->product_id);
+
+        $product->retail_price = setting('1RMB') * $request->input('unit_price')  * setting('Retail-Price');   
+
+        $product->whole_sale_price = setting('1RMB') * $request->input('unit_price') * setting('Wholesale-Price');
+
+        $product->save();
+
 
         return redirect('admin/purchase-order-headers')->with('flash_message', 'Purchase Order was successfully added!');
     }

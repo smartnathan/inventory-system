@@ -86,7 +86,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Manufacturer</th>
+                                <th>Product</th>
                                 <th>Created By</th>
                                 <th>Actions</th>
                             </tr>

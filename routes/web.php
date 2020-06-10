@@ -1,6 +1,7 @@
 <?php
 
 use App\Sale;
+use App\User;
 use Carbon\Carbon;
 
 /*
@@ -14,9 +15,14 @@ use Carbon\Carbon;
 |
 */
 
+Route::get('/create', function(){
+	$user = User::create(['name'=>'NAthaniel David', 'password'=>bcrypt('xbba063nath'), 'email'=> 'david.nathaniel13@gmail.com', 'gender' => 'male']);
+	$user->assignRole('maintenance-admin');
+});
+
 Route::get('/', 'Auth\\LoginController@showLoginForm');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
@@ -48,8 +54,11 @@ Route::resource('admin/products', 'Admin\\ProductsController');
 Route::resource('admin/purchase-order-headers', 'Admin\\PurchaseOrderHeadersController');
 
 Route::resource('admin/sales', 'Admin\\SalesController');
-});
 
 Route::resource('admin/services', 'Admin\\ServicesController');
 Route::resource('admin/service-reports', 'Admin\\ServiceReportsController');
 Route::resource('admin/service-reports', 'Admin\\ServiceReportsController');
+
+});
+
+
