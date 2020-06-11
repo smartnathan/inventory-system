@@ -86,9 +86,11 @@
                                 <th>#</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
-                                {{-- <th>Supplier</th> --}}
+                                <th>Unit Price (RMB)</th>
+                                <th>Store</th>
+                                <th>Total Amount (N)</th>
                                 <th>Date Added</th>
-                                <th>Total Amount</th><th>Actions</th>
+                                {{-- <th>Actions</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -96,14 +98,17 @@
                         @foreach($purchaseorderheaders as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->purchaseOrderLine->product->name }}</td>
+                                <td>{{ $item->purchaseOrderLine->product->manufacturer->name }} {{ $item->purchaseOrderLine->product->name }}</td>
                                 <td>{{ $item->purchaseOrderLine->quantity }}</td>
-                                {{-- <td>{{ $item->supplier->name }}</td> --}}
-                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->purchaseOrderLine->product->cost_price }}</td>
+                                <td>{{ $item->store->name }}</td>
                                 <td>{{ $item->total_amount }}</td>
-                                <td>
+                                <td>{{ $item->created_at->format('F d, Y h:i a') }}</td>
+                                
+                                {{-- <td> --}}
+
                                     {{-- <a href="{{ url('/admin/purchase-order-headers/' . $item->id) }}" title="View PurchaseOrderHeader"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
-                                    <a href="{{ url('/admin/purchase-order-headers/' . $item->id . '/edit') }}" title="Edit PurchaseOrderHeader"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    {{-- <a href="{{ url('/admin/purchase-order-headers/' . $item->id . '/edit') }}" title="Edit PurchaseOrderHeader"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/admin/purchase-order-headers', $item->id],
@@ -115,8 +120,8 @@
                                                 'title' => 'Delete PurchaseOrderHeader',
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
-                                    {!! Form::close() !!}
-                                </td>
+                                    {!! Form::close() !!} --}}
+                                {{-- </td> --}}
                             </tr>
                         @endforeach
                         </tbody>

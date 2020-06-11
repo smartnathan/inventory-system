@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Stock;
-use App\Product;
-
-use App\Supplier;
-use App\Http\Requests;
-use App\PurchaseOrderLine;
-use App\PurchaseOrderHeader;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Product;
+use App\PurchaseOrderHeader;
+use App\PurchaseOrderLine;
+use App\Stock;
+use App\Store;
+use App\Supplier;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseOrderHeadersController extends Controller
@@ -45,9 +45,12 @@ class PurchaseOrderHeadersController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Supplier--', '');
-        $products = Product::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Product--', '');
-        return view('admin.purchase-order-headers.create', compact('products', 'suppliers'));
+        //$suppliers = Supplier::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Supplier--', '');
+        $stores = Store::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Store--', '');
+
+        $products = Product::select('id', 'name', 'manufacturer_id', 'category_id')->get();
+
+        return view('admin.purchase-order-headers.create', compact('products', 'stores'));
     }
 
     /**
@@ -81,7 +84,9 @@ class PurchaseOrderHeadersController extends Controller
         $purchase_order_line->save();
 
 //Update Quantity in hand field in Products table
-$product_stock = Stock::where('product_id', $request->input('product_id'))->first();
+$product_stock = Stock::where('product_id', $request->input('product_id'))
+                ->where('store_id', $request->input('store_id'))->first();
+
 $product_stock->increment('quantity_in_hand', $request->input('quantity'));
 
     /*Find and update product wholesale and retail price when re-stocked*/
@@ -95,7 +100,7 @@ $product_stock->increment('quantity_in_hand', $request->input('quantity'));
         $product->save();
 
 
-        return redirect('admin/purchase-order-headers')->with('flash_message', 'Purchase Order was successfully added!');
+        return redirect('admin/purchase-order-headers')->with('flash_message', 'Product was  successfully re-stocked and the new price has been updated accordingly!');
     }
 
     /**
@@ -146,6 +151,7 @@ $product_stock->increment('quantity_in_hand', $request->input('quantity'));
         $requestData = $request->all();
 
         $purchaseorderheader = PurchaseOrderHeader::findOrFail($id);
+        
         $purchaseorderheader->update($requestData);
 
         $purchase_order_line = PurchaseOrderLine::where('purchase_order_header_id',$purchaseorderheader->id)->first();
@@ -154,9 +160,23 @@ $product_stock->increment('quantity_in_hand', $request->input('quantity'));
         $purchase_order_line->quantity = $request->input('quantity');
         $purchase_order_line->save();
 
+        //Update Quantity in hand field in Products table
+$product_stock = Stock::where('product_id', $request->input('product_id'))
+                ->where('store_id', $request->input('store_id'))->first();
+                
+$product_stock->increment('quantity_in_hand', $request->input('quantity'));
 
+    /*Find and update product wholesale and retail price when re-stocked*/
+        
+        $product = Product::findOrFail($request->product_id);
 
-        return redirect('admin/purchase-order-headers')->with('flash_message', 'PurchaseOrderHeader updated!');
+        $product->retail_price = setting('1RMB') * $request->input('unit_price')  * setting('Retail-Price');   
+
+        $product->whole_sale_price = setting('1RMB') * $request->input('unit_price') * setting('Wholesale-Price');
+
+        $product->save();
+
+        return redirect('admin/purchase-order-headers')->with('flash_message', 'Product re-stock was successfully and the new price has been updated accordingly!');
     }
 
     /**

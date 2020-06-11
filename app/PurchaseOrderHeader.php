@@ -31,7 +31,7 @@ class PurchaseOrderHeader extends Model
      *
      * @var array
      */
-    protected $fillable = ['supplier_id', 'date_purchased', 'total_amount', 'created_by'];
+    protected $fillable = ['supplier_id', 'date_purchased', 'total_amount', 'created_by', 'store_id'];
 
 
 
@@ -62,9 +62,13 @@ class PurchaseOrderHeader extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-public function setDatePurchasedAttribute($value)
-{
-    $this->attributes['date_purchased'] = date('Y-m-d h:i:s', strtotime($value));
-}
+    public function setDatePurchasedAttribute($value)
+    {
+        $this->attributes['date_purchased'] = date('Y-m-d h:i:s', strtotime($value));
+    }
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
 
 }

@@ -17,6 +17,7 @@ class CreatePurchaseOrderHeadersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('supplier_id')->nullable();
+            $table->integer('store_id');
             $table->dateTime('date_purchased')->nullable();
             $table->decimal('total_amount')->nullable();
             $table->integer('created_by')->nullable();
