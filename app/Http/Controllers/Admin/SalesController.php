@@ -69,12 +69,17 @@ class SalesController extends Controller
     public function store(Request $request)
     {
     $this->validate($request, [
-			'customer_id' => 'required',
+			//'customer_id' => 'required',
 			'remark' => 'required'
 		]);
         $requestData = $request->all();
 $requestData['created_by'] = Auth::Id();
 $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', time());
+        //dd($requestData);
+        if ($requestData['customer_id'] == null) {
+            $requestData['customer_id'] = 2;
+        }
+
         $sale = Sale::create($requestData);
         $x = 0;
         foreach ($requestData['product_id'] as $item) {
@@ -88,6 +93,7 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
             $order->is_paid = $requestData['is_paid'][$x];
             $order->code = str_random(11);
             $order->save();
+
             $stock = Stock::findOrFail($stock_id);
             $stock->decrement('quantity_in_hand', $requestData['quantity'][$x]);
             $x++;

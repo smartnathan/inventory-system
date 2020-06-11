@@ -46,13 +46,15 @@
                 </div>
             </div>
             <div class="ibox-content">
-                    @if ($errors->any())
+                <div style="margin: 0px 200px 0px 200px">
+                @if ($errors->any())
                     <ul class="alert alert-danger">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 @endif
+            </div>
 
                         <div class="col-md-offset-1">
 

@@ -32,7 +32,7 @@
     <div class="form-group{{ $errors->has('store_id') ? 'has-error' : ''}} col-md-4">
     {!! Form::label('stores', 'Store(s)', ['class' => 'control-label']) !!}
     <span class="text-danger">*</span>
-    {!! Form::select('stores[]', $stores, null, ['class' => 'select2_demo_3 form-control', 'required' => 'required', 'multiple' => true]) !!}
+    {!! Form::select('stores[]', $stores, isset($product_stores) ? $product_stores : [], ['class' => 'select2_demo_3 form-control', 'required' => 'required', 'multiple' => true, isset($product) ? 'disabled': '']) !!}
     {!! $errors->first('stores', '<p class="help-block">:message</p>') !!}
 </div>
 
@@ -73,13 +73,7 @@
         <strong style="font-size: 17px">Other Product Information</strong>
 <hr />
  
-<div class="row">
-    
-    <div class="form-group{{ $errors->has('wholesale_min_quantity') ? 'has-error' : ''}} col-md-4">
-    {!! Form::label('wholesale_min_quantity', 'Wholesale Min Quantity', ['class' => 'control-label']) !!}
-    {!! Form::number('wholesale_min_quantity', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('wholesale_min_quantity', '<p class="help-block">:message</p>') !!}
-</div>
+
 {{-- <div class="form-group{{ $errors->has('retail_price') ? 'has-error' : ''}}">
     {!! Form::label('retail_price', 'Retail Price (₦)', ['class' => 'control-label']) !!}
     {!! Form::number('retail_price', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -91,6 +85,16 @@
     {!! $errors->first('whole_sale_price', '<p class="help-block">:message</p>') !!}
 </div> --}}
 
+@if (isset($product))
+
+@else
+<div class="row">
+    
+    <div class="form-group{{ $errors->has('wholesale_min_quantity') ? 'has-error' : ''}} col-md-4">
+    {!! Form::label('wholesale_min_quantity', 'Wholesale Min Quantity', ['class' => 'control-label']) !!}
+    {!! Form::number('wholesale_min_quantity', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('wholesale_min_quantity', '<p class="help-block">:message</p>') !!}
+</div>
 <div class="form-group{{ $errors->has('quantity_in_hand') ? 'has-error' : ''}} col-md-4" style="margin-left: 5px! important">
     {!! Form::label('quantity_in_hand', 'Quantity in hand for store or each store', ['class' => 'control-label']) !!}
     {!! Form::number('quantity_in_hand', (isset($product)) ? $product->stock->quantity_in_hand : null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -102,6 +106,8 @@
     {!! $errors->first('re_order_quantity', '<p class="help-block">:message</p>') !!}
 </div>
 </div>
+@endif
+
 <div class="form-group{{ $errors->has('remark') ? 'has-error' : ''}}">
     {!! Form::label('remark', 'Remark', ['class' => 'control-label']) !!}
     {!! Form::textarea('remark', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required', 'rows' => 2] : ['class' => 'form-control']) !!}

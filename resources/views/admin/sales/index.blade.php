@@ -111,7 +111,7 @@
                             <td>
                                 {{-- <a href="{{ url('/admin/sales/' . $item->id) }}" title="View Sale"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
                                 <a href="{{ url('/admin/sales/' . $item->id . '/edit') }}" title="Edit Sale"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                {!! Form::open([
+                                {{-- {!! Form::open([
                                     'method' => 'DELETE',
                                     'url' => ['/admin/sales', $item->id],
                                     'style' => 'display:inline'
@@ -122,7 +122,7 @@
                                             'title' => 'Delete Sale',
                                             'onclick'=>'return confirm("Confirm delete?")'
                                     )) !!}
-                                {!! Form::close() !!}
+                                {!! Form::close() !!} --}}
                             </td>
                         </tr>
                     @endforeach

@@ -1,6 +1,7 @@
+<div class="text-danger">All fields marked * are required.</div>
 <div class="form-group{{ $errors->has('customer_id') ? 'has-error' : ''}}">
     {!! Form::label('customer_id', 'Customer', ['class' => 'control-label']) !!}
-    <select name="customer_id" class="form-control select2_demo_1" required="required">
+    <select name="customer_id" class="form-control select2_demo_1">
         <option value="">Choose a Customer</option>
             @if ($customers)
 @foreach($customers as $user)
@@ -23,9 +24,9 @@
                     <table id="pricing-list-container" style="width:100%;">
                         <tr>
                             <td>
-                                <span style="font-weight: bold">Product</span>
-                                <span style="margin-left: 520px; font-weight: bold">Quantity</span>
-                                <span style="margin-left: 120px; font-weight: bold">Payment Status</span>
+                                <span style="font-weight: bold">Product <span class="text-danger">*</span></span>
+                                <span style="margin-left: 520px; font-weight: bold">Quantity <span class="text-danger">*</span></span>
+                                <span style="margin-left: 120px; font-weight: bold">Payment Status <span class="text-danger">*</span></span>
 
                             </td>
                         </tr>
@@ -49,12 +50,12 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-grou">
-                                            <input type="number" class="form-control" placeholder="Quanity" name="quantity[]">
+                                            <input required="" type="number" class="form-control" placeholder="Quanity" name="quantity[]">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-grou">
-<select name="is_paid[]" id="" class="form-control">
+<select name="is_paid[]" id="" class="form-control" required="">
     <option value="">--Payment Status--</option>
     <option value="1">Paid</option>
     <option value="0">Not Paid</option>

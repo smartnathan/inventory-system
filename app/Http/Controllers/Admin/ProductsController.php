@@ -142,12 +142,19 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
     {
         $product = Product::findOrFail($id);
 
-        $brands = Brand::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Brand--', '');
+        //$brands = Brand::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Select Brand--', '');
+        //
+        $manufacturers = Manufacturer::select('id', 'name')->get()->pluck('name', 'id')->prepend('--Product--', '');
         $categories = Category::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Category--', '');
         $stores = Store::select('id', 'name')->get()->pluck('name','id')->prepend('--Select Store--', '');
-$units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label','id')->prepend('--Select Unit of Measurement--', '');
+         $product_stores = [];
+         foreach ($product->stocks as $stock) {
+             $product_stores[] = $stock->store_id;
+         }
+        //dd($product_stores);
+// $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label','id')->prepend('--Select Unit of Measurement--', '');
 
-        return view('admin.products.edit', compact('product', 'brands', 'categories', 'stores', 'units'));
+        return view('admin.products.edit', compact('product', 'manufacturers', 'categories', 'stores', 'product_stores'));
     }
 
     /**
@@ -163,12 +170,12 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
         $this->validate($request, [
 			'name' => 'required',
 			//'brand_id' => 'required',
-			'store_id' => 'required',
+			//'store_id' => 'required',
 			'category_id' => 'required',
 			'cost_price' => 'required',
 			//'unit_of_measurement_id' => 'required',
 			//'description' => 'required',
-			'wholesale_min_quantity' => 'required',
+			//'wholesale_min_quantity' => 'required',
 			//'retail_price' => 'required',
 			//'whole_sale_price' => 'required',
 			'remark' => 'required'
@@ -184,11 +191,12 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
 
         $product->update($requestData);
 
+        //Feature for updates on multiple shops will be review later.
         //Create new Stock of the added product
-        $stock = Stock::where('product_id', $product->id)->first();
-        $stock->quantity_in_hand = $request->input('quantity_in_hand');
-        $stock->re_order_quantity = $request->input('re_order_quantity');
-        $stock->save();
+        // $stock = Stock::where('product_id', $product->id)->first();
+        // $stock->quantity_in_hand = $request->input('quantity_in_hand');
+        // $stock->re_order_quantity = $request->input('re_order_quantity');
+        // $stock->save();
         return redirect('admin/products')->with('flash_message', 'Product was successfully updated!');
     }
 

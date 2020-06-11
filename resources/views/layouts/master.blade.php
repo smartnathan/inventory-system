@@ -12,7 +12,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 <link href="{{ asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')}}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
@@ -208,7 +208,21 @@
 
         </nav>
         </div>
+        @if (Session::has('error_message'))
+        <br>
+    <div class="alert alert-danger">
+        <strong>Error! </strong> {{ Session::get('error_message') }}
+    </div>
+        @endif
+           @if (Session::has('flash_message'))
+           <br>
+           <div class="alert alert-success">
+               <strong>Completed! </strong> {{ Session::get('flash_message') }}
+           </div>
+           @endif
+
             @yield('content')
+            
             @if (request()->is('admin/sales/invoice-print/*'))
             <div></div>
             @else
@@ -263,7 +277,7 @@
 
     </script>
         <!-- Sweet alert -->
-        <script src="{{ asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script> --}}
         <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 <script>
 $('#data_1 .input-group.date').datepicker({
@@ -294,7 +308,7 @@ $('#data_1 .input-group.date').datepicker({
     <script src="js/demo/sparkline-demo.js"></script>
     @yield('scripts')
 
-    @if (Session::has('error_message'))
+    {{-- @if (Session::has('error_message'))
     <script type="text/javascript">
                swal('WHOOP!', "{{ Session::get('error_message') }}", 'error');
            </script>
@@ -303,7 +317,7 @@ $('#data_1 .input-group.date').datepicker({
            <script type="text/javascript">
                swal('Good Job!', "{{ Session::get('flash_message') }}", 'success');
            </script>
-           @endif
+           @endif --}}
 
     <script>
 
