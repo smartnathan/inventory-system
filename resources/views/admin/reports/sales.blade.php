@@ -102,30 +102,28 @@
                 <table class="table table-striped">
                     <thead>
                                         <tr>
-                                            <th>Payment Status</th>
+                                            <th>ID</th>
+                                            
                                             <th>Product</th>
-                                            <th>Brand</th>
+                                            <th>Model</th>
                                             <th>Quantity</th>
                                             <th>Unit Price (₦)</th>
                                             <th>Total (₦)</th>
+                                            <th>Payment Status</th>
+                                            <th>Time</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $item)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            
                                             <td>
-                                                @if ($item->is_paid == 1)
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                @else
-                                                <span class="label label-danger"><i class="fa fa-times"></i> Not Paid</span>
-                                                @endif
+                                               {{ $item->product->manufacturer->name }} {{ $item->product->name }}
                                             </td>
                                             <td>
-                                               {{ $item->product->name }}
-                                            </td>
-                                            <td>
-                                                {{ $item->product->brand->manufacturer->name }}
+                                                {{ $item->product->name }}
                                             </td>
                                             <td>
                                                {{ $item->quantity }}
@@ -150,7 +148,14 @@
                         {{ $item->product->retail_price  * $item->quantity }}.00
                         @endif
                                             </td>
-
+                                            <td>
+                                                @if ($item->is_paid == 1)
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                                                @else
+                                                <span class="label label-danger"><i class="fa fa-times"></i> Not Paid</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->created_at->diffForhumans() }}</td>
                                         </tr>
                                         @endforeach
 

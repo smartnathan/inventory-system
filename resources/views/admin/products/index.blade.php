@@ -98,7 +98,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product">{{ $item->name }}</a></td>
+                                <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product">{{ $item->manufacturer->name }} {{ $item->name }}</a></td>
                             <td>{{ $item->manufacturer->name }}</td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->cost_price }}</td>

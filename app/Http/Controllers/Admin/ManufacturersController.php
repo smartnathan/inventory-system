@@ -62,7 +62,7 @@ class ManufacturersController extends Controller
         $requestData['created_by'] = Auth::Id();
         Manufacturer::create($requestData);
 
-        return redirect('admin/manufacturers')->with('flash_message', 'Manufacturer added!');
+        return redirect('admin/manufacturers')->with('flash_message', 'Product was successfully added!');
     }
 
     /**
@@ -112,7 +112,7 @@ class ManufacturersController extends Controller
         $manufacturer = Manufacturer::findOrFail($id);
         $manufacturer->update($requestData);
 
-        return redirect('admin/manufacturers')->with('flash_message', 'Manufacturer updated!');
+        return redirect('admin/manufacturers')->with('flash_message', 'Product was successfully updated!');
     }
 
     /**
@@ -126,6 +126,6 @@ class ManufacturersController extends Controller
     {
         Manufacturer::destroy($id);
 
-        return redirect('admin/manufacturers')->with('flash_message', 'Manufacturer deleted!');
+        return redirect('admin/manufacturers')->with('flash_message', 'Product was succesfully deleted!');
     }
 }

@@ -88,8 +88,9 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ url('/admin/stores') }}">Stores</a></li>
                         <li><a href="{{ url('/admin/categories') }}">Categories</a></li>
+                        <li><a href="{{ url('admin/brands') }}">Models</a></li> 
+
                         <li><a href="{{ url('admin/manufacturers') }}">Products</a></li>
-{{--                         <li><a href="{{ url('admin/brands') }}">Models</a></li> --}}
                         {{-- <li><a href="{{ url('admin/suppliers') }}">Suppiers</a></li> --}}
                         {{-- <li><a href="{{ url('admin/unit-of-measurements') }}">Unit of Measurement</a></li> --}}
 
@@ -99,7 +100,7 @@
                 <li>
                         <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">Manage Stocks</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ url('/admin/products') }}">Products</a></li>
+                            <li><a href="{{ url('/admin/products') }}">Add New Product</a></li>
             <li><a href="{{ url('/admin/purchase-order-headers') }}">Re-Stock Product</a></li>
 
                         </ul>

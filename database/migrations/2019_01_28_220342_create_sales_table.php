@@ -17,6 +17,7 @@ class CreateSalesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('customer_id');
+            $table->integer('store_id');
             $table->string('code');
             $table->text('remark')->nullable();
             $table->integer('created_by');

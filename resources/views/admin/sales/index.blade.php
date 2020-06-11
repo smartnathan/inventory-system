@@ -89,6 +89,7 @@
                             <th>Sale's Code</th>
                             <th>Time of Sale</th>
                             <th>Sold By</th>
+                            <th>Store</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -105,6 +106,7 @@
                             </td>
                             <td>{{ $item->created_at->diffForHumans() }}</td>
                             <td>{{ $item->user->name }}<br> <span class="badge badge-danger">{{ $item->user->roles[0]->label }}</span></td>
+                            <td><span style="font-weight: bold;" class="badge badge-primary">{{ $item->user->store->name ?? '' }}</span></td>
                             <td>{{ date('F d, Y h:i A', strtotime($item->created_at)) }}
                             </td>
 
