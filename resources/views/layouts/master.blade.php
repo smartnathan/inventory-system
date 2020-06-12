@@ -137,8 +137,15 @@
                     <input type="text" placeholder="Search for product..." class="form-control" name="top-search" id="top-search">
                 </div>
             </form>
+
         </div>
+
             <ul class="nav navbar-top-links navbar-right">
+                @if (isset(Auth::user()->store_id))
+                <li style="margin-right: 150px;">
+                    <span class="badge badge-success" style="font-size: 20px"><strong> <em>{{ Auth::user()->store->name }}</em></strong></span>
+                </li>
+                @endif
 <li>
                     <span class="m-r-sm text-muted welcome-message">Welcome to Jay Bawa Systems Inventory Management Application.</span>
                 </li>

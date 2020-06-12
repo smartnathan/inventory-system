@@ -28,19 +28,19 @@ class ProductsController extends Controller
 
         if (!empty($keyword)) {
             $products = Product::where('name', 'LIKE', "%$keyword%")
-                ->orWhere('brand_id', 'LIKE', "%$keyword%")
-                ->orWhere('created_by', 'LIKE', "%$keyword%")
-                ->orWhere('category_id', 'LIKE', "%$keyword%")
+                //->orWhere('brand_id', 'LIKE', "%$keyword%")
+                //->orWhere('created_by', 'LIKE', "%$keyword%")
+                //->orWhere('category_id', 'LIKE', "%$keyword%")
                 ->orWhere('code', 'LIKE', "%$keyword%")
-                ->orWhere('image', 'LIKE', "%$keyword%")
+                //->orWhere('image', 'LIKE', "%$keyword%")
                 ->orWhere('cost_price', 'LIKE', "%$keyword%")
-                ->orWhere('unit_of_measurement_id', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->orWhere('is_active', 'LIKE', "%$keyword%")
-                ->orWhere('wholesale_min_quantity', 'LIKE', "%$keyword%")
-                ->orWhere('retail_price', 'LIKE', "%$keyword%")
-                ->orWhere('whole_sale_price', 'LIKE', "%$keyword%")
-                ->orWhere('remark', 'LIKE', "%$keyword%")
+                //->orWhere('unit_of_measurement_id', 'LIKE', "%$keyword%")
+                //->orWhere('description', 'LIKE', "%$keyword%")
+                //->orWhere('is_active', 'LIKE', "%$keyword%")
+                //->orWhere('wholesale_min_quantity', 'LIKE', "%$keyword%")
+                //->orWhere('retail_price', 'LIKE', "%$keyword%")
+                //->orWhere('whole_sale_price', 'LIKE', "%$keyword%")
+                //->orWhere('remark', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $products = Product::latest()->paginate($perPage);

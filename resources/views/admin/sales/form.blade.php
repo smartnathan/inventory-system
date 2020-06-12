@@ -41,7 +41,7 @@
         <option value="">Choose a product</option>
             @if ($stocks)
 @foreach($stocks as $stock)
-<option value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->name }} - {{ $stock->product->manufacturer->name }}</option>
+<option value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->name ?? 'No model' }} - {{ $stock->product->manufacturer->name ?? 'No Product' }}</option>
 @endforeach
     @endif
     </select>
