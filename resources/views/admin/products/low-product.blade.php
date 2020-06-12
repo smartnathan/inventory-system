@@ -45,7 +45,11 @@
                         {{ $item->product->code ?? 'No valid Product Code'}}
                     </td>
                     <td class="mail-subject">
-                        {{ $item->product->store->name ?? 'No Linked Store' }}
+                        @forelse ($item->product->store as $store)
+                        <span class="badge badge-primary"> {{ $store->name }}</span>
+                        @empty
+                        <strong>No Linked Store</strong>
+                        @endforelse
                     </td>
                     <td class="mail-check">
                         {{ $item->quantity_in_hand }}
