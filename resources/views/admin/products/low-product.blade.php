@@ -45,7 +45,7 @@
                         {{ $item->product->code }}
                     </td>
                     <td class="mail-subject">
-                        {{ $item->product->store->name }}
+                        {{ $item->product->store->name ?? 'No Linked Store' }}
                     </td>
                     <td class="mail-check">
                         {{ $item->quantity_in_hand }}
