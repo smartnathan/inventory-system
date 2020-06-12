@@ -39,7 +39,7 @@
                         <input type="checkbox" class="i-checks">
                     </td>
                     <td class="mail-subject">
-                        {{ $item->product->name}}
+                        {{ $item->product->manufacturer->name ?? "No valid product"}} {{ $item->product->name ?? "No valid model"}}
                     </td>
                     <td class="mail-subject">
                         {{ $item->product->code }}
