@@ -42,7 +42,7 @@
                         {{ $item->product->manufacturer->name ?? "No valid product"}} {{ $item->product->name ?? "No valid model"}}
                     </td>
                     <td class="mail-subject">
-                        {{ $item->product->code }}
+                        {{ $item->product->code ?? 'No valid Product Code'}}
                     </td>
                     <td class="mail-subject">
                         {{ $item->product->store->name ?? 'No Linked Store' }}
