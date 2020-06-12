@@ -72,7 +72,7 @@
                         <div class="input-group">
                             <input type="text" class="input-sm form-control" name="search" placeholder="Search" value="{{ request('search') }}">
                             <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
+                                    <button type="submit" class="btn btn-sm btn-primary"> Find!</button>
                             </span>
                         </div>
                         {!! Form::close() !!}
