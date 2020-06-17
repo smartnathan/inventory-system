@@ -22,20 +22,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <table id="pricing-list-container" style="width:100%;">
-                        <tr>
+                        {{-- <tr>
                             <td>
                                 <span style="font-weight: bold">Product <span class="text-danger">*</span></span>
-                                <span style="margin-left: 520px; font-weight: bold">Quantity <span class="text-danger">*</span></span>
+                                <span style="margin-left: 700px; font-weight: bold">Quantity <span class="text-danger">*</span></span>
                                 <span style="margin-left: 120px; font-weight: bold">Payment Status <span class="text-danger">*</span></span>
 
                             </td>
-                        </tr>
+                        </tr> --}}
 
                         <tr class="pricing-list-item">
                             <td>
                                 <div class="row">
 
                                     <div class="col-md-8">
+<label style="font-weight: bold">Product <span class="text-danger">*</label>
 <div class="form-group{{ $errors->has('product_id') ? 'has-error' : ''}}">
     <select name="product_id[]" class="form-control select2_demo_3" required="required">
         <option value="">Choose a product</option>
@@ -50,11 +51,13 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-grou">
+                                            <label style="font-weight: bold">Quantity <span class="text-danger">*</label>
                                             <input required="" type="number" class="form-control" placeholder="Quanity" name="quantity[]">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-grou">
+                                            <label style="font-weight: bold">Payment Status <span class="text-danger">*</label>
 <select name="is_paid[]" id="" class="form-control" required="">
     <option value="">--Payment Status--</option>
     <option value="1">Paid</option>
