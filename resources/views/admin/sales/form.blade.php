@@ -35,13 +35,13 @@
                             <td>
                                 <div class="row">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
 <div class="form-group{{ $errors->has('product_id') ? 'has-error' : ''}}">
-    <select name="product_id[]" class="form-control select2_demo_" required="required">
+    <select name="product_id[]" class="form-control select2_demo_3" required="required">
         <option value="">Choose a product</option>
             @if ($stocks)
 @foreach($stocks as $stock)
-<option style="font-weight: bold;" value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->manufacturer->name ?? 'No Product' }} {{ $stock->product->name ?? 'No model' }} <strong>({{ $stock->product->category->name ?? 'No category' }})</strong> | {{ __('Current Quantity') }} - <strong>{{ $stock->quantity_in_hand }}</strong></option>
+<option style="font-weight: bold;" value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->manufacturer->name ?? 'No Product' }} {{ $stock->product->name ?? 'No model' }} <strong>({{ $stock->product->category->name ?? 'No category' }})</strong> | {{ __('Current Quantity') }} - <strong>{{ $stock->quantity_in_hand }}</strong> | {{ __('Retail Price: ') }} {{ $stock->product->retail_price }} | {{ __('Wholesale Price: ') }} {{ $stock->product->whole_sale_price }}</option>
 @endforeach
     @endif
     </select>
@@ -63,18 +63,18 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <a class="delete btn btn-danger btn-rounded" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </td>
                         </tr>
                     </table>
 
                     </div>
-                    <a href="#0" class="btn btn-success btn-rounded add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add Item</a>
+                    {{-- <a href="#0" class="btn btn-success btn-rounded add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add Item</a> --}}
             </div>
             <!-- /row-->
 

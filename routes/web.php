@@ -44,6 +44,7 @@ Route::resource('admin/settings', 'Admin\SettingsController');
 // Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
 Route::resource('admin/stores', 'Admin\\StoresController');
+Route::resource('admin/stocks', 'Admin\\StockController');
 Route::resource('admin/categories', 'Admin\\CategoriesController');
 Route::resource('admin/suppliers', 'Admin\\SuppliersController');
 Route::resource('admin/manufacturers', 'Admin\\ManufacturersController');

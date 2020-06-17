@@ -90,15 +90,18 @@
                             <th>Time of Sale</th>
                             <th>Sold By</th>
                             <th>Store</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Price Type</th>
                             <th>Date</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($sales as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->customer->name }}</td>
+                            <td>{{ $item->customer->name ?? 'No Customer' }}</td>
                             <td>
                             <a href="{{ url('/admin/sales/' . $item->id) }}" title="View Sale">
                                 {{ $item->code }} <i class="fa fa-eye" aria-hidden="true"></i>
@@ -107,12 +110,15 @@
                             <td>{{ $item->created_at->diffForHumans() }}</td>
                             <td>{{ $item->user->name }}<br> <span class="badge badge-danger">{{ $item->user->roles[0]->label }}</span></td>
                             <td><span style="font-weight: bold;" class="badge badge-primary">{{ $item->user->store->name ?? '' }}</span></td>
+                            <td>{{ $item->orders[0]->quantity ?? '' }}</td>
+                            <td>{{ $item->orders[0]->total_price ?? '' }}</td>
+                            <td>{{ $item->orders[0]->price_type ?? '' }}</td>
                             <td>{{ date('F d, Y h:i A', strtotime($item->created_at)) }}
                             </td>
 
                             <td>
                                 {{-- <a href="{{ url('/admin/sales/' . $item->id) }}" title="View Sale"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a> --}}
-                                <a href="{{ url('/admin/sales/' . $item->id . '/edit') }}" title="Edit Sale"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                {{-- <a href="{{ url('/admin/sales/' . $item->id . '/edit') }}" title="Edit Sale"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a> --}}
                                 {{-- {!! Form::open([
                                     'method' => 'DELETE',
                                     'url' => ['/admin/sales', $item->id],

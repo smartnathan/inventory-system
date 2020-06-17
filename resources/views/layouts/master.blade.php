@@ -79,8 +79,13 @@
                         <a href="{{ url('admin/customers') }}"><i class="fa fa-user"></i> <span class="nav-label">Customers</span></a>
                 </li>
                 <li>
-                    <a href="{{ url('/admin/sales') }}"><i class="fa fa-laptop"></i> <span class="nav-label">Sales</span></a>
+                    <a href="{{ url('/admin/sales') }}"><i class="fa fa-calendar-check-o"></i> <span class="nav-label">Sales</span></a>
                 </li>
+@if(Auth::user()->hasRole(['sales']))
+<li>
+                    <a href="{{ url('/admin/stocks') }}"><i class="fa fa-mobile"></i> <span class="nav-label">Products Available</span></a>
+                </li>
+@endif
 @if(Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin']))
 
                 <li>

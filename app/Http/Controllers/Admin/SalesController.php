@@ -80,17 +80,32 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
             $requestData['customer_id'] = 2;
         }
 
+        
         $sale = Sale::create($requestData);
+        
+
         $x = 0;
         foreach ($requestData['product_id'] as $item) {
             $content = explode(',', $item);
             $product_id = $content[0];
             $stock_id = $content[1];
+
+        $product = Product::findOrFail($product_id);
+
+            if ($requestData['quantity'][$x] >= $product->wholesale_min_quantity) {
+            $requestData['total_price'] = $product->whole_sale_price * $requestData['quantity'][$x];
+            $requestData['price_type'] = "Wholesale";
+        } else {
+            $requestData['total_price'] = $product->retail_price * $requestData['quantity'][$x];
+            $requestData['price_type'] = "Retail";
+        }
             $order = new Order;
             $order->sale_id = $sale->id;
             $order->product_id = $product_id;
             $order->quantity = $requestData['quantity'][$x];
             $order->is_paid = $requestData['is_paid'][$x];
+            $order->total_price = $requestData['total_price'];
+            $order->price_type = $requestData['price_type'];
             $order->code = str_random(11);
             $order->save();
 
@@ -147,6 +162,8 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
      */
     public function edit($id)
     {
+        abort('419');
+        
         $sale = Sale::findOrFail($id);
 
         return view('admin.sales.edit', compact('sale'));
