@@ -38,28 +38,36 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        {{-- <a  href="{{ url('/admin/sales/' . $sale->id . '/edit') }}" title="Edit Sale" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit sale</a> --}}
-                                        <a  href="#" title="Edit Sale" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit sale</a>
+                                        
+                                        
                                         <h2><a href="{{ url('/admin/sales') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a> {{ $sale->code }}</h2>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>
-                                    </dl>
+                                   
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
-
+                                        <dt>Payment Mode:</dt> <dd>
+                                            @if ($sale->orders()->first()->is_paid == "Credit")
+                                            <span class="label label-danger">{{ $sale->orders()->first()->is_paid }}</span>
+                                            @else
+                                            <span class="label label-primary">{{ $sale->orders()->first()->is_paid }}</span>
+                                            @endif
+                                        </dd>
+                                        <br>
                                         <dt>Sold By:</dt> <dd>{{ $sale->user->name }}</dd>
+                                        <br>
                                         <dt>Sale's Code:</dt> <dd>  {{ $sale->code }} </dd>
-                                        <dt>Customer:</dt> <dd><a href="#" class="text-navy"> {{ $sale->customer->name }}</a> </dd>
+                                        <br>
+                                        <dt>Customer:</dt> <dd><a href="#" class="text-navy"> {{ $sale->customer->name ?? "No Customer name" }}</a> </dd>
                                     </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal" >
 
                                         <dt>Date Sold:</dt> <dd> {{ date('d.m.Y h:i:s a', strtotime($sale->created_at)) }}</dd>
+                                        <br>
                                         <dt>Date Updated:</dt> <dd>  {{ date('d.m.Y h:i:s a', strtotime($sale->updated_at)) }} </dd>
 
                                     </dl>
@@ -108,10 +116,10 @@
                                         @foreach($sale->orders as $item)
                                         <tr>
                                             <td>
-                                                @if ($item->is_paid == 1)
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                                                @if ($item->is_paid == "Credit")
+                                                <span class="label label-danger"><i class="fa fa-times"></i> {{ $item->is_paid }}</span>
                                                 @else
-                                                <span class="label label-danger"><i class="fa fa-times"></i> Not Paid</span>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> {{ $item->is_paid }}</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -131,24 +139,14 @@
                                                 @endif
                                             </th>
                                             <td>
-                @if ($item->quantity >= $item->product->wholesale_min_quantity)
-                            {{ $item->product->whole_sale_price}}
-                        @else
-                        {{ $item->product->retail_price }}
-                        @endif
+                {{ $item->unit_price }}
                                             </td>
                                             <td>
-                                            @if ($item->quantity >= $item->product->wholesale_min_quantity)
+                                           
                                             @php
-                                            $total += $item->product->whole_sale_price * $item->quantity
+                                            $total += $item->total_price
                                             @endphp
-                            {{ $item->product->whole_sale_price * $item->quantity}}.00
-                        @else
-                        @php
-                        $total += $item->product->retail_price  * $item->quantity;
-                        @endphp
-                        {{ $item->product->retail_price  * $item->quantity }}.00
-                        @endif
+                                            {{ $item->total_price }}
                                             </td>
 
                                         </tr>

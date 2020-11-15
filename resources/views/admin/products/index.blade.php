@@ -102,8 +102,8 @@
                             <td>{{ $item->manufacturer->name }}</td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->cost_price }}</td>
-                            <td>{{ $item->retail_price }}</td>
-                            <td>{{ $item->whole_sale_price }}</td>
+                            <td>{{ number_format($item->cost_price * setting('Retail-Price') * setting('1RMB'), 2) }}</td>
+                            <td>{{ number_format($item->cost_price * setting('Wholesale-Price') * setting('1RMB'), 2) }}</td>
                             {{-- <td>{{ $item->stocks->quantity_in_hand?? ''}}</td> --}}
                             <td>
                                 <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>

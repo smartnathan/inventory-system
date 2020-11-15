@@ -15,12 +15,12 @@
 
 
 
-
 <div class="">
                 <h1></i>Item(s) Sold</h1>
             </div>
             <div class="row">
                 <div class="col-md-12">
+
                     <table id="pricing-list-container" style="width:100%;">
                         {{-- <tr>
                             <td>
@@ -34,15 +34,14 @@
                         <tr class="pricing-list-item">
                             <td>
                                 <div class="row">
-
                                     <div class="col-md-8">
 <label style="font-weight: bold">Product <span class="text-danger">*</label>
 <div class="form-group{{ $errors->has('product_id') ? 'has-error' : ''}}">
-    <select name="product_id[]" class="form-control select2_demo_3" required="required">
+    <select name="product_id[]" class="form-control select2_demo_4 product" required="required">
         <option value="">Choose a product</option>
             @if ($stocks)
 @foreach($stocks as $stock)
-<option style="font-weight: bold;" value="{{ $stock->product_id }}, {{ $stock->id }}">{{ $stock->product->manufacturer->name ?? 'No Product' }} {{ $stock->product->name ?? 'No model' }} <strong>({{ $stock->product->category->name ?? 'No category' }})</strong> | {{ __('Current Quantity') }} - <strong>{{ $stock->quantity_in_hand ?? '' }}</strong> | {{ __('Retail Price: ') }} {{ $stock->product->retail_price ?? '' }} | {{ __('Wholesale Price: ') }} {{ $stock->product->whole_sale_price ?? '' }}</option>
+<option style="font-weight: bold;" value="{{ $stock->product_id }}, {{ $stock->id }}" data-product="{{ $stock->quantity_in_hand ?? '' }}" data-retail="{{ $stock->product->cost_price  * setting('1RMB') * setting('Retail-Price')}}" data-wholesale="{{ $stock->product->cost_price  * setting('1RMB') * setting('Wholesale-Price')}}">{{ $stock->product->manufacturer->name ?? 'No Product' }} {{ $stock->product->name ?? 'No model' }} <strong>({{ $stock->product->category->name ?? 'No category' }})</strong> | {{ __('Current Quantity') }} - <strong>{{ $stock->quantity_in_hand ?? '' }}</strong></option>
 @endforeach
     @endif
     </select>
@@ -57,11 +56,13 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-grou">
-                                            <label style="font-weight: bold">Payment Status <span class="text-danger">*</label>
+                                            <label style="font-weight: bold">Payment Mode <span class="text-danger">*</label>
 <select name="is_paid[]" id="" class="form-control" required="">
-    <option value="">--Payment Status--</option>
-    <option value="1">Paid</option>
-    <option value="0">Not Paid</option>
+    <option value="">--Select mode--</option>
+    <option value="Credit">Credit</option>
+    <option value="Cash">Cash</option>
+    <option value="POS">POS</option>
+    <option value="Bank Transfer">Bank Transfer</option>
 </select>
 
                                         </div>
@@ -81,8 +82,7 @@
             </div>
             <!-- /row-->
 
-
-
+                    <h1 style="color: red; font-weight: bold; font-size: 25px" class="show-product"></h1>
 
 
 <div class="form-group{{ $errors->has('remark') ? 'has-error' : ''}}">
@@ -93,12 +93,19 @@
 
 
 <div class="form-group">
-    {!! Form::submit($formMode === 'edit' ? 'Update' : 'Make Sale', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit($formMode === 'edit' ? 'Update' : 'Make Sale', ['class' => 'btn btn-primary pull-right btn-lg']) !!}
 </div>
 
 @section('scripts')
 <script>
     $(document).ready(function(){
+
+        $(".product").on("change", function(){
+            let quantity = $(this).find(':selected').data('product');
+            let retail = $(this).find(':selected').data('retail');
+            let wholesale = $(this).find(':selected').data('wholesale');
+            $('.show-product').text("Quantity Available: "+quantity+" | Retail Price: ₦"+retail+" | Wholesale Price: ₦"+wholesale);
+        });
 // Pricing add
     function newMenuItem() {
         var newElem = $('tr.pricing-list-item').first().clone();

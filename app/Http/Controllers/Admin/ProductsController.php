@@ -97,6 +97,14 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
         //Note
         //Cost price input comes as a chinese currency,
         //should be converted to naira equivalent
+        $product = Product::where('name', $requestData['name'])
+                    ->where('category_id', $requestData['category_id'])
+                    ->where('manufacturer_id', $requestData['manufacturer_id'])
+                    ->first();
+        if ($product) {
+            return redirect('admin/products/create')->with('error_message', 'Product already exist!');
+
+        }
         $requestData['retail_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Retail-Price');   
 
         $requestData['whole_sale_price'] = setting('1RMB') * $requestData['cost_price'] * setting('Wholesale-Price');

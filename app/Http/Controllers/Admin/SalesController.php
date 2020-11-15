@@ -93,10 +93,12 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
         $product = Product::findOrFail($product_id);
 
             if ($requestData['quantity'][$x] >= $product->wholesale_min_quantity) {
-            $requestData['total_price'] = $product->whole_sale_price * $requestData['quantity'][$x];
+            $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Wholesale-Price');
+            $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Wholesale-Price');
             $requestData['price_type'] = "Wholesale";
         } else {
-            $requestData['total_price'] = $product->retail_price * $requestData['quantity'][$x];
+            $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Retail-Price');
+            $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Retail-Price');
             $requestData['price_type'] = "Retail";
         }
             $order = new Order;
@@ -105,6 +107,7 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
             $order->quantity = $requestData['quantity'][$x];
             $order->is_paid = $requestData['is_paid'][$x];
             $order->total_price = $requestData['total_price'];
+            $order->unit_price = $requestData['unit_price'];
             $order->price_type = $requestData['price_type'];
             $order->code = str_random(11);
             $order->save();
@@ -119,7 +122,7 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
         $log->log_name = 'sales';
         $log->description = "Made sales with code number {$sale->code} to ";
         $log->causer_id = Auth::Id();
-        $log->subject_type = $sale->customer->name;
+        $log->subject_type = $sale->customer->name ?? "No customer name";
         $log->causer_type = 'App\User';
         $log->save();
         return redirect('admin/sales')->with('flash_message', 'Sale was successfully made!');

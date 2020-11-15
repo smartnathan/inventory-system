@@ -285,6 +285,9 @@
                  $(".select2_demo_3").select2({
                 placeholder: "Select Store(s)"
             });
+                 $(".select2_demo_4").select2({
+                placeholder: "Select product"
+            });
                  $(".select2_demo").select2();
 
 

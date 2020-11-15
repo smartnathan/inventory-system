@@ -18,11 +18,9 @@
                                     <h4 class="text-navy">{{ $sale->code }}</h4>
                                     <span>To:</span>
                                     <address>
-                                        <strong>{{ $sale->customer->name}}.</strong>{{-- <br>
-                                        112 Street Avenu, 1080<br>
-                                        Miami, CT 445611<br> --}}
+                                        <strong>{{ $sale->customer->name ?? 'No Customer address'}}.</strong>
                                         <br />
-                                        <abbr title="Phone">Phone:</abbr> {{ $sale->customer->mobile_number }}
+                                        <abbr title="Phone">Phone:</abbr> {{ $sale->customer->mobile_number ?? 'No Customer Phone' }}
                                     </address>
                                     <p>
                                         <span><strong>Invoice Date:</strong> {{ date('F d, Y', strtotime($sale->created_at))}}</span><br/>
@@ -53,10 +51,10 @@
                                             </td>
 
                                             <td>
-                                                @if ($item->is_paid == 1)
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Paid</span>
+                                                @if ($item->is_paid == "Credit")
+                                                <span class="label label-danger"><i class="fa fa-times"></i> {{ $item->is_paid }}</span>
                                                 @else
-                                                <span class="label label-danger"><i class="fa fa-times"></i> Not Paid</span>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> {{ $item->is_paid }}</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -67,27 +65,17 @@
                                                {{ $item->quantity }}
                                             </td>
                                             <td>
-                @if ($item->quantity >= $item->product->wholesale_min_quantity)
-                            {{ $item->product->whole_sale_price}}
-                        @else
-                        {{ $item->product->retail_price }}
-                        @endif
+                                        {{ $item->unit_price }}
                                             </td>
                                             <td>
-                                            @if ($item->quantity >= $item->product->wholesale_min_quantity)
+                                            
                                             @php
-                                            $total += $item->product->whole_sale_price * $item->quantity
+                                            $total += $item->total_price
                                             @endphp
-                            {{ $item->product->whole_sale_price * $item->quantity}}.00
-                        @else
-                        @php
-                        $total += $item->product->retail_price  * $item->quantity;
-                        @endphp
-                        {{ $item->product->retail_price  * $item->quantity }}.00
-                        @endif
+                           {{ $item->total_price }}
                                             </td>
 
-                                        </tr>
+                                        </tr>   
                                         @endforeach
 
                                     </tbody>
