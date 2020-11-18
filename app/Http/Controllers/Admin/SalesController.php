@@ -63,7 +63,7 @@ class SalesController extends Controller
 
     public function getProductAndStock($code)
     {
-        $product = Product::select('id', 'name', 'code', 'category_id', 'cost_price', 'manufacturer_id',)->where('code', $code)->first();
+        $product = Product::select('id', 'name', 'code', 'category_id', 'cost_price', 'manufacturer_id')->where('code', strtolower($code))->first();
 
         if (!$product) {
             return response()->json(['error' => 'Product not found'], 404);

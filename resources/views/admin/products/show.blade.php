@@ -62,8 +62,8 @@
                 <div class="barcode col-md-6">
     <p>{{$product->manufacturer->name}} {{ $product->name }}</p>
     <p class="price">Price: {{number_format($product->cost_price * setting('Retail-Price') * setting('1RMB'), 2)}}</p>
-    {!! DNS1D::getBarcodeHTML($product->code, "C128",1.4,22) !!}
-    <p class="pid">{{$product->id}}</p>
+    {!! DNS1D::getBarcodeHTML($product->code, "C39",1.4,100) !!}
+    {{-- <p class="pid">{{$product->id}}</p> --}}
 </div>
                 {{-- {!! DNS2D::getBarcodeHTML($product->code, 'QRCODE') !!} --}}
             </div>

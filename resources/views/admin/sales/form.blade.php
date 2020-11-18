@@ -1,5 +1,5 @@
 <div class="row">
-    
+
     <div class="col-md-12">
         <label for="product_infor">Scan or Enter Product Code: </label>
         <input type="text" autofocus name="product" id="product_info" class="form-control">
@@ -83,6 +83,8 @@
                             error: function(error){
                                 console.log(error)
                                 $(".show-product").html(`<i class="fa  fa-frown-o"></i> ${error.responseJSON.error}`);
+                                $("#product_info").val("");
+                                $("#product_info").focus();
                             }
                         });
         })
