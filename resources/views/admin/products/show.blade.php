@@ -55,9 +55,17 @@
         {{-- <strong>Product: $product->name</strong><br>
         <strong>Category: $product->category->name</strong><br>
         <strong>Price: $product->cost_price * setting('Retail-Price') * setting('1RMB')</strong> --}}
-        <div class="col-lg-7" id="cluster_info">
+        <div class="col-lg-7" id="clustr_info">
             <div class="text-center">
-                {!! QrCode::size(200)->gradient(0, 0, 200, 0, 0, 50,'vertical')->generate("Product: " .$product->manufacturer->name . " " . $product->name. ", Category: " .$product->category->name. " Price:N".number_format($product->cost_price * setting('Retail-Price') * setting('1RMB'), 2)); !!}
+                {{-- {!! QrCode::size(200)->gradient(0, 0, 200, 0, 0, 50,'vertical')->generate("Product: " .$product->manufacturer->name . " " . $product->name. ", Category: " .$product->category->name. " Price:N".number_format($product->cost_price * setting('Retail-Price') * setting('1RMB'), 2)); !!} --}}
+                {{-- {!! DNS1D::getBarcodeHTML($product->code, 'PHARMA2T', 3, 70, 'black', true) !!} --}}
+                <div class="barcode col-md-6">
+    <p>{{$product->manufacturer->name}} {{ $product->name }}</p>
+    <p class="price">Price: {{number_format($product->cost_price * setting('Retail-Price') * setting('1RMB'), 2)}}</p>
+    {!! DNS1D::getBarcodeHTML($product->code, "C128",1.4,22) !!}
+    <p class="pid">{{$product->id}}</p>
+</div>
+                {{-- {!! DNS2D::getBarcodeHTML($product->code, 'QRCODE') !!} --}}
             </div>
 
         </div>

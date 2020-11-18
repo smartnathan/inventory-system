@@ -27,6 +27,8 @@ Auth::routes(['register' => false]);
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function(){
+
+Route::get('admin/stocks/products/{code}', 'Admin\SalesController@getProductAndStock');
 Route::get('admin/reports/sales', 'ReportsController@sales');
 Route::get('admin/sales/invoice/{id}', 'Admin\SalesController@invoice');
 Route::get('admin/sales/invoice-print/{id}', 'Admin\SalesController@invoice_print');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Manufacturer;
 use App\Order;
 use App\Product;
 use App\Sale;
@@ -40,7 +42,7 @@ class SalesController extends Controller
             if (Auth::user()->hasRole(['admin', 'manager', 'maintenance-admin'])) {
                 $sales = Sale::latest()->paginate($perPage);
             } else {
-            $sales = Sale::where('created_by', Auth::Id())->latest()->paginate($perPage);
+                $sales = Sale::where('created_by', Auth::Id())->latest()->paginate($perPage);
             }
         }
 
@@ -59,6 +61,29 @@ class SalesController extends Controller
         return view('admin.sales.create', compact('customers', 'stocks'));
     }
 
+    public function getProductAndStock($code)
+    {
+        $product = Product::select('id', 'name', 'code', 'category_id', 'cost_price', 'manufacturer_id',)->where('code', $code)->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        $category = Category::find($product->category_id);
+        $manufacturer = Manufacturer::find($product->manufacturer_id);
+        $stock = Stock::whereRaw('quantity_in_hand > re_order_quantity')->where('store_id', Auth::user()->store_id)->where('product_id', $product->id)->first();
+
+        return response()->json([
+            'product' => $product,
+            'category' => $category,
+            'stock' => $stock,
+            'manufacuterer' => $manufacturer,
+            'rmb_price' => setting('1RMB') * setting('Retail-Price')
+        ]);
+        
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -68,13 +93,13 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-    $this->validate($request, [
+        $this->validate($request, [
 			//'customer_id' => 'required',
-			'remark' => 'required'
-		]);
+         'remark' => 'required'
+     ]);
         $requestData = $request->all();
-$requestData['created_by'] = Auth::Id();
-$requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', time());
+        $requestData['created_by'] = Auth::Id();
+        $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', time());
         //dd($requestData);
         if ($requestData['customer_id'] == null) {
             $requestData['customer_id'] = 2;
@@ -90,17 +115,17 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
             $product_id = $content[0];
             $stock_id = $content[1];
 
-        $product = Product::findOrFail($product_id);
+            $product = Product::findOrFail($product_id);
 
             if ($requestData['quantity'][$x] >= $product->wholesale_min_quantity) {
-            $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Wholesale-Price');
-            $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Wholesale-Price');
-            $requestData['price_type'] = "Wholesale";
-        } else {
-            $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Retail-Price');
-            $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Retail-Price');
-            $requestData['price_type'] = "Retail";
-        }
+                $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Wholesale-Price');
+                $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Wholesale-Price');
+                $requestData['price_type'] = "Wholesale";
+            } else {
+                $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Retail-Price');
+                $requestData['unit_price'] = $product->cost_price * setting('1RMB') * setting('Retail-Price');
+                $requestData['price_type'] = "Retail";
+            }
             $order = new Order;
             $order->sale_id = $sale->id;
             $order->product_id = $product_id;
@@ -183,9 +208,9 @@ $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', ti
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'customer_id' => 'required',
-			'remark' => 'required'
-		]);
+         'customer_id' => 'required',
+         'remark' => 'required'
+     ]);
         $requestData = $request->all();
 
         $sale = Sale::findOrFail($id);
