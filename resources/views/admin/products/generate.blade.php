@@ -22,17 +22,17 @@
 </div>
 
 <div class="row">
-<div class="col-lg-12">
-    <div class="ibox float-e-margins">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
 
-        <div class="ibox-title">
+            <div class="ibox-title">
                 <a href="{{ url('/admin/products') }}" class="btn btn-success btn-sm" title="Back">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     <span class="bold"> Back</span>
                 </a>
                 
 
-            <div class="ibox-tools">
+                <div class="ibox-tools">
 
                 {{-- <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -59,46 +59,44 @@
             <table class="table table-bordered">
                 @for ($i = 1; $i <= $row; $i++)
                 <tr>
-                   @for ($j = 1; $j <= 2; $j++)
-                   <td>
-                       @if (isset($products[$prodInit]))
-                       <p>{{ $products[$prodInit]->manufacturer->name }} {{ $products[$prodInit]->name }} ({{$products[$prodInit]->category->name}})</p>
-                       @php
-    echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1) . '" alt="barcode"   />';
-    @endphp
-                       @else
-                       No Product found
-                       @endif
-                   </td>
-                   @php
-                   $prodInit++;
-                   @endphp
-                   @endfor
-                </tr>
-                @endfor
-            </table>
-            
-            <p class="text-center" style="margin-top: 10px" id="print-btn">
-                            <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Print page" />
+                 @for ($j = 1; $j <= 2; $j++)
+                 <td>
+                     @if (isset($products[$prodInit]))
+                     <p>{{ $products[$prodInit]->manufacturer->name }} {{ $products[$prodInit]->name }} ({{$products[$prodInit]->category->name}})</p>
+                     @php
+                     echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1) . '" alt="barcode"   />';
+                     @endphp
+                     @endif
+                 </td>
+                 @php
+                 $prodInit++;
+                 @endphp
+                 @endfor
+             </tr>
+             @endfor
+         </table>
+         
+         <p class="text-center" style="margin-top: 10px" id="print-btn">
+            <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Print page" />
 
-                        </p>
-        </div>
+        </p>
     </div>
+</div>
 </div>
 </div>
 
 <script type="text/javascript">
     function printDiv(divName) {
       document.getElementById('print-btn').style.display="none";
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
+      var printContents = document.getElementById(divName).innerHTML;
+      var originalContents = document.body.innerHTML;
 
-     document.body.innerHTML = printContents;
+      document.body.innerHTML = printContents;
 
-     window.print();
+      window.print();
 
-     document.body.innerHTML = originalContents;
-}
+      document.body.innerHTML = originalContents;
+  }
 </script>
 
 @endsection
