@@ -31,8 +31,12 @@
                     <span class="bold"> Add Products</span>
                 </a>
                 <a href="{{ url('/admin/product/generate') }}" class="btn btn-success btn-sm" title="Add New Products">
-                    <i class="fa fa-laptop" aria-hidden="true"></i>
+                    <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="bold"> Generate Products Barcode</span>
+                </a>
+                <a href="{{ url('admin/product/generate-thermal') }}" class="btn btn-success btn-sm" title="Add New Products">
+                    <i class="fa fa-print" aria-hidden="true"></i>
+                    <span class="bold"> Generate Products Barcode for thermal Printer</span>
                 </a>
 
             <div class="ibox-tools">

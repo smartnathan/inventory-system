@@ -1,9 +1,23 @@
 @extends('layouts.master')
 
 @section('content')
+<style type="text/css">
+    td,
+    th,
+    tr,
+    table {
+        border-top: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .ticket {
+        width: 155px;
+        max-width: 155px;
+    }
+</style>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Products Barcode</h2>
+        <h2>Products Barcode for thermal printer</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="">Home</a>
@@ -51,33 +65,25 @@
                 </a> --}}
             </div>
         </div>
-        @php
-        $row = round(count($products)/2);
-        $prodInit = 0;
-        @endphp
-        <div class="ibox-content" id="printableArea">
-            <table class="table table-bordered">
-                @for ($i = 1; $i <= $row; $i++)
-                <tr>
-                 @for ($j = 1; $j <= 2; $j++)
-                 <td>
-                     @if (isset($products[$prodInit]))
-                     <p>{{ $products[$prodInit]->manufacturer->name }} {{ $products[$prodInit]->name }} ({{$products[$prodInit]->category->name}})</p>
-                     @php
-                     echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1) . '" alt="barcode"   />';
-                     @endphp
-                     @endif
-                 </td>
-                 @php
-                 $prodInit++;
-                 @endphp
-                 @endfor
-             </tr>
-             @endfor
-         </table>
-
-         <p class="text-center" style="margin-top: 10px" id="print-btn">
+        <p class="text-center" style="margin-top: 10px" id="print-btn">
             <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Print page" />
+        <div class="ticket" id="printableArea">
+            <table>
+                @foreach($products as $item)
+                <tr>
+                   <td>
+
+                       {{ $item->manufacturer->name }} {{ $item->name }} ({{$item->category->name}}) <br>
+                       @php
+                       echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->code, 'C39', 1) . '" alt="barcode"   />';
+                       @endphp
+                       <br><br>
+                   </td>
+               </tr>
+               @endforeach
+           </table>
+
+
 
         </p>
     </div>
@@ -86,7 +92,7 @@
 </div>
 
 <script type="text/javascript">
-    function printDiv(divName) {
+ function printDiv(divName) {
       document.getElementById('print-btn').style.display="none";
       var printContents = document.getElementById(divName).innerHTML;
       var originalContents = document.body.innerHTML;
@@ -98,5 +104,4 @@
       document.body.innerHTML = originalContents;
   }
 </script>
-
 @endsection

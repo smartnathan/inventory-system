@@ -27,6 +27,11 @@ class ProductsController extends Controller
         $products = Product::latest()->get();
         return view('admin.products.generate', compact('products'));
     }
+    public function generate_thermal()
+    {
+        $products = Product::latest()->get();
+        return view('admin.products.generate-thermal', compact('products'));
+    }
     public function index(Request $request)
     {
         $keyword = $request->get('search');

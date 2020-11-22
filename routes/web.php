@@ -55,6 +55,7 @@ Route::resource('admin/customers', 'Admin\\CustomersController');
 Route::resource('admin/unit-of-measurements', 'Admin\\UnitOfMeasurementsController');
 Route::resource('admin/products', 'Admin\\ProductsController');
 Route::get('admin/product/generate', 'Admin\\ProductsController@generate');
+Route::get('admin/product/generate-thermal', 'Admin\\ProductsController@generate_thermal');
 Route::resource('admin/purchase-order-headers', 'Admin\\PurchaseOrderHeadersController');
 
 Route::resource('admin/sales', 'Admin\\SalesController');
