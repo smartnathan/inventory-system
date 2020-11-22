@@ -61,10 +61,14 @@
                 <tr>
                    @for ($j = 1; $j <= 2; $j++)
                    <td>
+                       @if ($products[$prodInit])
                        <p>{{ $products[$prodInit]->manufacturer->name }} {{ $products[$prodInit]->name }} ({{$products[$prodInit]->category->name}})</p>
                        @php
     echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1) . '" alt="barcode"   />';
     @endphp
+                       @else
+                       No Product found
+                       @endif
                    </td>
                    @php
                    $prodInit++;
