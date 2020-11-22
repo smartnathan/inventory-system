@@ -54,6 +54,7 @@ Route::resource('admin/brands', 'Admin\\BrandsController');
 Route::resource('admin/customers', 'Admin\\CustomersController');
 Route::resource('admin/unit-of-measurements', 'Admin\\UnitOfMeasurementsController');
 Route::resource('admin/products', 'Admin\\ProductsController');
+Route::get('admin/product/generate', 'Admin\\ProductsController@generate');
 Route::resource('admin/purchase-order-headers', 'Admin\\PurchaseOrderHeadersController');
 
 Route::resource('admin/sales', 'Admin\\SalesController');

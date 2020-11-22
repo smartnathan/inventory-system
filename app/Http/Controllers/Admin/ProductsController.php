@@ -21,6 +21,12 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    
+    public function generate()
+    {
+        $products = Product::latest()->get();
+        return view('admin.products.generate', compact('products'));
+    }
     public function index(Request $request)
     {
         $keyword = $request->get('search');
