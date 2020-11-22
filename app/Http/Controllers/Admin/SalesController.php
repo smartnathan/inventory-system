@@ -95,8 +95,8 @@ class SalesController extends Controller
     {
         $this->validate($request, [
 			//'customer_id' => 'required',
-         'remark' => 'required'
-     ]);
+           'remark' => 'required'
+       ]);
         $requestData = $request->all();
         $requestData['created_by'] = Auth::Id();
         $requestData['code'] = str_random('4').'-'.mt_rand(111,999).'-'.date('Y-m-d', time());
@@ -208,9 +208,9 @@ class SalesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-         'customer_id' => 'required',
-         'remark' => 'required'
-     ]);
+           'customer_id' => 'required',
+           'remark' => 'required'
+       ]);
         $requestData = $request->all();
 
         $sale = Sale::findOrFail($id);

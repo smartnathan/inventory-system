@@ -62,8 +62,11 @@
                 <div class="barcode col-md-6">
     <p>{{$product->manufacturer->name}} {{ $product->name }}</p>
     <p class="price">Price: {{number_format($product->cost_price * setting('Retail-Price') * setting('1RMB'), 2)}}</p>
-    {!! DNS1D::getBarcodeHTML($product->code, "C39",1.4,100) !!}
+    {{-- {!! DNS1D::getBarcodePNG($product->code, "C39",1.4,100) !!} --}}
     {{-- <p class="pid">{{$product->id}}</p> --}}
+    @php
+    echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($product->code, 'C39', 1.4, 100) . '" alt="barcode"   />';
+    @endphp
 </div>
                 {{-- {!! DNS2D::getBarcodeHTML($product->code, 'QRCODE') !!} --}}
             </div>
