@@ -64,7 +64,7 @@
                      @if (isset($products[$prodInit]))
                      <p>{{ $products[$prodInit]->manufacturer->name }} {{ $products[$prodInit]->name }} ({{$products[$prodInit]->category->name}})</p>
                      @php
-                     echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1) . '" alt="barcode"   />';
+                     echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1.4, 100) . '" alt="barcode"   />';
                      @endphp
                      @endif
                  </td>

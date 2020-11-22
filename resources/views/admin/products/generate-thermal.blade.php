@@ -67,7 +67,7 @@
         </div>
         <p class="text-center" style="margin-top: 10px" id="print-btn">
             <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Print page" />
-        <div class="ticket" id="printableArea">
+        <div class="ticket" id="printableArea" style="margin: auto;">
             <table>
                 @foreach($products as $item)
                 <tr>
@@ -75,7 +75,7 @@
 
                        {{ $item->manufacturer->name }} {{ $item->name }} ({{$item->category->name}}) <br>
                        @php
-                       echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->code, 'C39', 1) . '" alt="barcode"   />';
+                       echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->code, 'C39', 1.4, 100) . '" alt="barcode"   />';
                        @endphp
                        <br><br>
                    </td>

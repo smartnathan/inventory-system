@@ -111,11 +111,9 @@ class SalesController extends Controller
 
         $x = 0;
         foreach ($requestData['product_id'] as $item) {
-            $content = explode(',', $item);
-            $product_id = $content[0];
-            $stock_id = $content[1];
+            $stock_id = $requestData['stock_id'][$x];
 
-            $product = Product::findOrFail($product_id);
+            $product = Product::findOrFail($item);
 
             if ($requestData['quantity'][$x] >= $product->wholesale_min_quantity) {
                 $requestData['total_price'] = $product->cost_price * $requestData['quantity'][$x] * setting('1RMB') * setting('Wholesale-Price');
@@ -128,7 +126,7 @@ class SalesController extends Controller
             }
             $order = new Order;
             $order->sale_id = $sale->id;
-            $order->product_id = $product_id;
+            $order->product_id = $product->id;
             $order->quantity = $requestData['quantity'][$x];
             $order->is_paid = $requestData['is_paid'][$x];
             $order->total_price = $requestData['total_price'];

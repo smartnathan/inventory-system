@@ -54,6 +54,7 @@
                         <div class="col-md-6">
                         <label style="font-weight: bold">Product Name: <span class="text-danger">*</label>
                         <input type="hidden" value="${data.product.id}" name="product_id[]">
+                        <input type="hidden" value="${data.stock.id}" name="stock_id[]">
                         <input value="${data.manufacuterer.name} ${data.product.name} - ${data.category.name} #${data.product.code}" type="text" readonly="" class="form-control">
                         </div>
                         <div class="col-md-2">

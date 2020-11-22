@@ -102,31 +102,27 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>Payment Status</th>
+                                            
                                             <th>Product</th>
-                                            <th>Product Order Code</th>
+                                            <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Returned</th>
                                             <th>Unit Price (₦)</th>
                                             <th>Total (₦)</th>
+                                            <th>Payment Status</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($sale->orders as $item)
                                         <tr>
+                                            
                                             <td>
-                                                @if ($item->is_paid == "Credit")
-                                                <span class="label label-danger"><i class="fa fa-times"></i> {{ $item->is_paid }}</span>
-                                                @else
-                                                <span class="label label-primary"><i class="fa fa-check"></i> {{ $item->is_paid }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
+                                                {{ $item->product->manufacturer->name }}
                                                {{ $item->product->name }}
                                             </td>
                                             <td>
-                                               {{ $item->code }}
+                                               {{ $item->product->category->name }}
                                             </td>
                                             <td>
                                                {{ $item->quantity }}
@@ -139,7 +135,7 @@
                                                 @endif
                                             </th>
                                             <td>
-                {{ $item->unit_price }}
+                                            {{ $item->unit_price }}
                                             </td>
                                             <td>
                                            
@@ -149,13 +145,21 @@
                                             {{ $item->total_price }}
                                             </td>
 
+                                            <td>
+                                                @if ($item->is_paid == "Credit")
+                                                <span class="label label-danger"><i class="fa fa-times"></i> {{ $item->is_paid }}</span>
+                                                @else
+                                                <span class="label label-primary"><i class="fa fa-check"></i> {{ $item->is_paid }}</span>
+                                                @endif
+                                            </td>
+
                                         </tr>
                                         @endforeach
 
                                         </tbody>
                                     </table>
                                     <hr />
-<div class="lead text-right">Grand Total (₦) = {{ $total }}.00</div>
+<div class="lead text-right">Grand Total (₦) = {{ number_format($total, 2) }}</div>
 <hr />
 <div class="text-right"><a target="_blank" class="btn btn-primary btn-rounded" href="{{ url('admin/sales/invoice', ['id' => $sale->id])}}">Generate Invoice</a></div>
                                 </div>
