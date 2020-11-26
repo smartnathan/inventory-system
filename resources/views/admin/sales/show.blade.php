@@ -161,7 +161,9 @@
                                     <hr />
 <div class="lead text-right">Grand Total (₦) = {{ number_format($total, 2) }}</div>
 <hr />
-<div class="text-right"><a target="_blank" class="btn btn-primary btn-rounded" href="{{ url('admin/sales/invoice', ['id' => $sale->id])}}">Generate Invoice</a></div>
+<div class="text-right">
+    <a target="_blank" class="btn btn-primary btn-rounded" href="{{ url('admin/sales/receipt', ['id' => $sale->id])}}">Print Receipt</a> &nbsp; &nbsp; &nbsp;
+    <a target="_blank" class="btn btn-primary btn-rounded" href="{{ url('admin/sales/invoice', ['id' => $sale->id])}}">Generate Invoice</a></div>
                                 </div>
                                 </div>
 

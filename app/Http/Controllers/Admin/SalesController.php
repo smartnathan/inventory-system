@@ -179,6 +179,13 @@ class SalesController extends Controller
         return view('admin.sales.invoice-print', compact('sale', 'total'));
     }
 
+    public function receipt($id)
+    {
+        $total = 0;
+        $sale = Sale::findOrFail($id);
+        return view('admin.sales.receipt', compact('sale', 'total'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

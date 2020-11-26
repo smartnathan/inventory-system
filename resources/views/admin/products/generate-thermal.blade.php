@@ -75,7 +75,7 @@
 
                        {{ $item->manufacturer->name }} {{ $item->name }} ({{$item->category->name}}) <br>
                        @php
-                       echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->code, 'C39', 1.4, 100) . '" alt="barcode"   />';
+                       echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($item->id, 'C39', 1.4, 100) . '" alt="barcode"   />';
                        @endphp
                        <br><br>
                    </td>
