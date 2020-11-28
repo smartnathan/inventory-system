@@ -66,6 +66,7 @@
                      @php
                      echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($products[$prodInit]->code, 'C39', 1.4, 100) . '" alt="barcode"   />';
                      @endphp
+                     <p><strong>{{ $products[$prodInit]->code }}</strong></p>
                      @endif
                  </td>
                  @php

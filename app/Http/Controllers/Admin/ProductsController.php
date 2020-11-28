@@ -100,7 +100,7 @@ $units = UnitOfMeasurement::select('id', 'name', 'label')->get()->pluck('label',
         $requestData = $request->all();
         $manufacturer = Manufacturer::findOrFail($request->input('manufacturer_id'));
         $requestData['created_by'] = Auth::Id();
-        $requestData['code'] = str_replace(' ', '-', strtolower($request->input('name'))).'-'.str_random(5).'-'.date('Y', time());
+        $requestData['code'] = str_random(6).date('dm');
         //$requestData['name'] = $manufacturer->name . ' ' .$request->input('name');
         //$requestData['name'] = $request->input('name');
 
