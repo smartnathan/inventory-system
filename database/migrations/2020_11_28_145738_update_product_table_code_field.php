@@ -15,7 +15,7 @@ class UpdateProductTableCodeField extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $product = Product::all();
+            $products = Product::all();
             foreach ($products as $product) {
                 $product->code = str_random(6).date('dm');
                 $product->save();
